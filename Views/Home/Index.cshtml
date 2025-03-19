@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@model List<WebBiaProject.Models.Branch>
 <!-- Carousel Start -->
 <!-- Carousel Start -->
 <div class="header-carousel owl-carousel overflow-hidden bg-dark">
@@ -62,158 +62,37 @@
             </p>
         </div>
         <div class="row gy-4 gx-0 justify-content-center">
-           <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                   
-                                  
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-warning fs-5 fw-bold">Status: 43/56</p>
-                                    <p class="mb-0 text-success fs-5 fw-bold">Empty: 13 tables</p>
-                                </div>
 
-                            </div>
-                        </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Peri Pool - Branch 1</a>
-                        <p class="mb-4">
-                            Dc: 43 Nguyen Van Tuyet, Thanh Xuan, Ha Noi
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Go Area</span></a>
-                    </div>
-                   </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
+            @foreach (var branch in Model)
+            {
+                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="courses-item">
+                        <div class="courses-item-inner p-4">
+                            <div class="d-flex justify-content-between mb-4">
+                                <div class="courses-icon-img p-3">
+                                    <img src="img/logoPeri.jpg" class="img-fluid" alt="">
                                 </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-warning fs-5 fw-bold">Status: 43/56</p>
-                                    <p class="mb-0 text-success fs-5 fw-bold">Empty: 13 tables</p>
-                                </div>
+                                <div class="data-info d-flex flex-column">
+                                    <div class="courses-trainer d-flex align-items-center mb-1">
+                                    </div>
+                                    <div class="courses-date">
+                                        <p class="mb-1 text-warning fs-5 fw-bold">Status: Available</p>
+                                        
+                                    </div>
 
+                                </div>
                             </div>
+                            <a href="#" class="d-inline-block h4 mb-3">Peri Pool - @branch.Name</a>
+                            <p class="mb-4">
+                                Address: @branch.Address
+                            </p>
+                            <a href="#" class="btn btn-primary py-2 px-4"> <span>Go Area</span></a>
                         </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Peri Pool - Branch 1</a>
-                        <p class="mb-4">
-                            Dc: 43 Nguyen Van Tuyet, Thanh Xuan, Ha Noi
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Go Area</span></a>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-warning fs-5 fw-bold">Status: 43/56</p>
-                                    <p class="mb-0 text-success fs-5 fw-bold">Empty: 13 tables</p>
-                                </div>
 
-                            </div>
-                        </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Peri Pool - Branch 1</a>
-                        <p class="mb-4">
-                            Dc: 43 Nguyen Van Tuyet, Thanh Xuan, Ha Noi
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Go Area</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-warning fs-5 fw-bold">Status: 43/56</p>
-                                    <p class="mb-0 text-success fs-5 fw-bold">Empty: 13 tables</p>
-                                </div>
-
-                            </div>
-                        </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Peri Pool - Branch 1</a>
-                        <p class="mb-4">
-                            Dc: 43 Nguyen Van Tuyet, Thanh Xuan, Ha Noi
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Go Area</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-warning fs-5 fw-bold">Status: 43/56</p>
-                                    <p class="mb-0 text-success fs-5 fw-bold">Empty: 13 tables</p>
-                                </div>
-
-                            </div>
-                        </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Peri Pool - Branch 1</a>
-                        <p class="mb-4">
-                            Dc: 43 Nguyen Van Tuyet, Thanh Xuan, Ha Noi
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Go Area</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-warning fs-5 fw-bold">Status: 43/56</p>
-                                    <p class="mb-0 text-success fs-5 fw-bold">Empty: 13 tables</p>
-                                </div>
-
-                            </div>
-                        </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Peri Pool - Branch 1</a>
-                        <p class="mb-4">
-                            Dc: 43 Nguyen Van Tuyet, Thanh Xuan, Ha Noi
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Go Area</span></a>
-                    </div>
-                </div>
-            </div>
+            }
+           
 
 
             <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.2s">

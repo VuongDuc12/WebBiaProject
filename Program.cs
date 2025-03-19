@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebBiaProject.Data;
 using WebBiaProject.Models;
+using WebBiaProject.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Đăng ký ApplicationDbContext
@@ -16,6 +17,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
 
 var app = builder.Build();
 

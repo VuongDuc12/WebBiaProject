@@ -19,6 +19,9 @@ public partial class Branch
     [StringLength(255)]
     public string Address { get; set; } = null!;
 
+    [StringLength(100)]
+    public string? Status { get; set; }
+
     [StringLength(20)]
     public string? Phone { get; set; }
 
