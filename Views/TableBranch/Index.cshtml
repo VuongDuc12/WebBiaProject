@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "TableBranch";
 }
+@model WebBiaProject.ViewModel.TableBranchViewModel
 
 
 <!-- Courses Start -->
@@ -9,272 +10,112 @@
     <div class="container py-5">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
             <h4 class="text-primary">Peri Pool Areas</h4>
-            <h1 class="display-4 text-white mb-4">Please select an available table.</h1>
+            <h1 class="display-4 text-white mb-4">@Model.Branch.Name</h1>
+            <h3 class="display-4 text-white mb-4"> @Model.Branch.Address</h3>
+           
             <p class="text-white mb-0">
                 Choose a table to enjoy our exclusive Peri Pool Areas. Experience luxurious amenities, a tranquil atmosphere, and top-tier service while you relax by the pool.
             </p>
-            <p class="mb-1 text-success fs-3 fw-bold">Status: 43/56</p>
+            <p class="mb-1 text-success fs-3 fw-bold">Status: @Model.Branch.Status</p>
         </div>
         <div class="row gy-4 gx-0 justify-content-center">
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-danger fs-5 fw-bold">Status: Playing</p>
-                                    <p class="mb-0  fs-5 fw-bold">Time: 9h40AM - ...</p>
-                                </div>
+            @foreach (var Table in Model.billiardTables)
+            {
+                @if (Table.Status.Name == "Sẵn Sàng")
+                {
 
+                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="courses-item">
+                            <div class="courses-item-inner p-4">
+                                <div class="d-flex justify-content-between mb-4">
+                                    <div class="courses-icon-img p-3">
+                                        <img src="img/logoPeri.jpg" class="img-fluid" alt="">
+                                    </div>
+                                    <div class="data-info d-flex flex-column">
+                                        <div class="courses-trainer d-flex align-items-center mb-1">
+                                        </div>
+                                        <div class="courses-date">
+                                            <p class="mb-1 text-success fs-5 fw-bold">Status: @Table.Status.Name</p>
+                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <a href="#" class="d-inline-block h4 mb-3">@Table.Name</a>
+
+                                <p class="mb-4">
+                                    This table is available, you can book it.
+                                </p>
+                                <a href="#" class="btn btn-primary py-2 px-4"> <span>Booking now</span></a>
                             </div>
                         </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Table 1</a>
-                        <p class="mb-4">
-                            Table This table is in use. Please wait.
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Can't play</span></a>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-success fs-5 fw-bold">Status: Available</p>
-                                    <p class="mb-0  fs-5 fw-bold">Time: Ready</p>
-                                </div>
 
+                }
+                else if (Table.Status.Name == "Đã Đặt Bàn")
+                    {
+                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="courses-item">
+                            <div class="courses-item-inner p-4">
+                                <div class="d-flex justify-content-between mb-4">
+                                    <div class="courses-icon-img p-3">
+                                        <img src="img/logoPeri.jpg" class="img-fluid" alt="">
+                                    </div>
+                                    <div class="data-info d-flex flex-column">
+                                        <div class="courses-trainer d-flex align-items-center mb-1">
+                                        </div>
+                                        <div class="courses-date">
+                                            <p class="mb-1 text-warning fs-5 fw-bold">Status: @Table.Status.Name</p>
+                                          
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <a href="#" class="d-inline-block h4 mb-3">@Table.Name</a>
+
+                                <p class="mb-4">
+                                    This table is in use. Please wait.
+                                </p>
+                                <button class="btn btn-primary py-2 px-4" disabled><span>Can't Book</span></button>
                             </div>
                         </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Table 2</a>
-                        <p class="mb-4">
-                            This table is available. You can play now.
-                        </p>
-                        <a href="#"
-                           data-bs-toggle="modal"
-                           data-bs-target="#bookingModal"
-                           data-table-id="2"
-                           data-table-name="Table 2"
-                           class="btn btn-primary py-2 px-4">
-                            <span>Play Now</span>
-                        </a>
                     </div>
-                </div>
-            </div>
-             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-danger fs-5 fw-bold">Status: Playing</p>
-                                    <p class="mb-0  fs-5 fw-bold">Time: 9h40AM - ...</p>
-                                </div>
 
+                    }
+                else
+                {
+                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="courses-item">
+                            <div class="courses-item-inner p-4">
+                                <div class="d-flex justify-content-between mb-4">
+                                    <div class="courses-icon-img p-3">
+                                        <img src="img/logoPeri.jpg" class="img-fluid" alt="">
+                                    </div>
+                                    <div class="data-info d-flex flex-column">
+                                        <div class="courses-trainer d-flex align-items-center mb-1">
+                                        </div>
+                                        <div class="courses-date">
+                                            <p class="mb-1 text-danger fs-5 fw-bold">Status: @Table.Status.Name</p>
+                                   
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <a href="#" class="d-inline-block h4 mb-3">@Table.Name</a>
+
+                                <p class="mb-4">
+                                    This table is in use. Please wait.
+                                </p>
+                                <button class="btn btn-primary py-2 px-4" disabled><span>Can't Book</span></button>
                             </div>
                         </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Table 1</a>
-                        <p class="mb-4">
-                            Table This table is in use. Please wait.
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Can't play</span></a>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-success fs-5 fw-bold">Status: Available</p>
-                                    <p class="mb-0  fs-5 fw-bold">Time: Ready</p>
-                                </div>
 
-                            </div>
-                        </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Table 2</a>
-                        <p class="mb-4">
-                            This table is available. You can play now.
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Play Now</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-danger fs-5 fw-bold">Status: Playing</p>
-                                    <p class="mb-0  fs-5 fw-bold">Time: 9h40AM - ...</p>
-                                </div>
+                }
 
-                            </div>
-                        </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Table 1</a>
-                        <p class="mb-4">
-                            Table This table is in use. Please wait.
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Can't play</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-success fs-5 fw-bold">Status: Available</p>
-                                    <p class="mb-0  fs-5 fw-bold">Time: Ready</p>
-                                </div>
-
-                            </div>
-                        </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Table 2</a>
-                        <p class="mb-4">
-                            This table is available. You can play now.
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Play Now</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-danger fs-5 fw-bold">Status: Playing</p>
-                                    <p class="mb-0  fs-5 fw-bold">Time: 9h40AM - ...</p>
-                                </div>
-
-                            </div>
-                        </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Table 1</a>
-                        <p class="mb-4">
-                            Table This table is in use. Please wait.
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Can't play</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-success fs-5 fw-bold">Status: Available</p>
-                                    <p class="mb-0  fs-5 fw-bold">Time: Ready</p>
-                                </div>
-
-                            </div>
-                        </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Table 2</a>
-                        <p class="mb-4">
-                            This table is available. You can play now.
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Play Now</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-danger fs-5 fw-bold">Status: Playing</p>
-                                    <p class="mb-0  fs-5 fw-bold">Time: 9h40AM - ...</p>
-                                </div>
-
-                            </div>
-                        </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Table 1</a>
-                        <p class="mb-4">
-                            Table This table is in use. Please wait.
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Can't play</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="courses-item">
-                    <div class="courses-item-inner p-4">
-                        <div class="d-flex justify-content-between mb-4">
-                            <div class="courses-icon-img p-3">
-                                <img src="img/logoPeri.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="data-info d-flex flex-column">
-                                <div class="courses-trainer d-flex align-items-center mb-1">
-                                </div>
-                                <div class="courses-date">
-                                    <p class="mb-1 text-success fs-5 fw-bold">Status: Available</p>
-                                    <p class="mb-0  fs-5 fw-bold">Time: Ready</p>
-                                </div>
-
-                            </div>
-                        </div>
-                        <a href="#" class="d-inline-block h4 mb-3">Table 2</a>
-                        <p class="mb-4">
-                            This table is available. You can play now.
-                        </p>
-                        <a href="#" class="btn btn-primary py-2 px-4"> <span>Play Now</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.2s">
-                <a href="#" class="btn btn-primary py-3 px-5"> <span>More Courses</span></a>
+            }
+          
+               
             </div>
         </div>
     </div>

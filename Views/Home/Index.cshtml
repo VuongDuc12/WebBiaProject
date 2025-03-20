@@ -40,7 +40,7 @@
                                 Immerse yourself in a world of precision, strategy, and excitement. Our high-quality tables and dynamic atmosphere make every game unforgettable. Gather your friends and enjoy a top-tier billiards experience like never before!
                             </p>
                             <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
-                                <a class="btn btn-dark py-3 px-4 px-md-5 me-2" href="#"><i class="fas fa-play-circle me-2"></i> <span>Watch Video</span></a>
+                                <a class="btn btn-dark py-3 px-4 px-md-5 me-2" href="#"><i class="fas fa-play-circle me-2"></i> <span>Play Now</span></a>
                                 <a class="btn btn-primary py-3 px-4 px-md-5 ms-2" href="#"><span>Learn More</span></a>
                             </div>
                         </div>
@@ -76,8 +76,18 @@
                                     <div class="courses-trainer d-flex align-items-center mb-1">
                                     </div>
                                     <div class="courses-date">
-                                        <p class="mb-1 text-warning fs-5 fw-bold">Status: Available</p>
-                                        
+                                        @if (@branch.Status == "Hoạt Động")
+                                        {
+                                            <p class="mb-1 text-success fs-5 fw-bold">Status:@branch.Status</p>
+                                        }
+                                        else if (@branch.Status == "Bảo Trì")
+                                        {
+                                            <p class="mb-1 text-danger fs-5 fw-bold">Status: @branch.Status</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="mb-1 text-warning fs-5 fw-bold">Status: @branch.Status</p>
+                                        }
                                     </div>
 
                                 </div>
@@ -86,7 +96,9 @@
                             <p class="mb-4">
                                 Address: @branch.Address
                             </p>
-                            <a href="#" class="btn btn-primary py-2 px-4"> <span>Go Area</span></a>
+                            <a asp-controller="TableBranch" asp-action="Index" asp-route-x="@branch.Id" class="btn btn-primary py-2 px-4">
+                                <span>Go Area</span>
+                            </a>
                         </div>
                     </div>
                 </div>
