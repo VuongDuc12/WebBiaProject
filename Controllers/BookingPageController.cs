@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebBiaProject.Data;
 
 namespace WebBiaProject.Controllers
 {
+    [Authorize(Roles = "Customer")]
     public class BookingPageController : Controller
     {
        

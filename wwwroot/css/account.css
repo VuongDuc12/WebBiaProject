@@ -1,13 +1,15 @@
 ﻿.account-container {
-    background-image: url('../images/account-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: repeat-y;
+    background-image: url('/images/account-bg.jpg'); /* Absolute path from wwwroot */
+    background-size: cover; /* Ensures the image covers the entire area */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeating (changed from repeat-y) */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 2rem 0;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    min-height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    margin: 0; /* Remove any margins */
+    padding: 2rem 0; /* Keep padding for content spacing */
 }
 
 .account-box {
@@ -17,5 +19,5 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     max-width: 500px;
     width: 100%;
-    opacity: .9;
+    opacity: 0.9;
 }
