@@ -1,0 +1,31 @@
+@using static WebBiaProject.Areas.Admin.Controllers.UsersController
+@model EditRolesViewModel
+
+@{
+    ViewData["Title"] = "User Management";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container my-3">
+<h1>Edit Roles for @Model.UserEmail</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" name="UserId" value="@Model.UserId" />
+
+    <div class="form-group">
+        <label>Select Roles:</label>
+        @foreach (var role in Model.AllRoles)
+        {
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="SelectedRoles" value="@role"
+                    @if (Model.SelectedRoles.Contains(role)) { <text>checked</text> } />
+                <label class="form-check-label">@role</label>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+
+<a asp-action="Index" class="btn btn-secondary mt-2">Back to Users List</a>
+
+</div>

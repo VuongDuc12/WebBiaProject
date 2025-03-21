@@ -1,1 +1,79 @@
-﻿
+﻿@model List<WebBiaProject.Models.BilliardTable>
+
+@foreach (var table in Model)
+{
+    <div class="container-fluid courses overflow-hidden py-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                <h4 class="text-primary">Peri Pool Areas</h4>
+                <h1 class="display-4 text-white mb-4">@table.Name - @table.Branch.Name</h1>
+            </div>
+            <div class="row gy-4 gx-0 justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card p-4 shadow">
+                        <h2 class="text-center mb-4">Book @table.Name</h2>
+                        <form id="bookingForm" asp-action="BookTable" method="post">
+                            @Html.AntiForgeryToken()
+                            <!-- Hidden fields -->
+                            <input type="hidden" name="TableId" value="@table.Id" />
+                            <input type="hidden" name="BranchId" value="@table.Branch.Id" />
+                            <input type="hidden" name="CustomerId" value="@ViewBag.CurrentCustomerId" />
+
+                            <!-- Booking Details -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Booking Date *</label>
+                                    <input type="date" class="form-control" name="StartTimeDate"
+                                           min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Booking Time *</label>
+                                    <input type="time" class="form-control" name="StartTimeTime" required>
+                                </div>
+                            </div>
+
+                            <!-- Prepayment Section -->
+                            <div class="mb-4">
+                                <h4 class="mb-3">Payment Options</h4>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="PaymentMethod"
+                                           id="payNow" value="Prepaid" checked>
+                                    <label class="form-check-label" for="payNow">
+                                        Pay Now (Deposit:)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="PaymentMethod"
+                                           id="payLater" value="PayLater">
+                                    <label class="form-check-label" for="payLater">
+                                        Pay at Venue
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Payment Method -->
+                            <div id="paymentMethods" class="mb-4">
+                                <h5>Select Payment Method</h5>
+                                <select class="form-select" name="PaymentType">
+                                    <option value="CreditCard">Credit Card</option>
+                                    <option value="BankTransfer">Bank Transfer</option>
+                                    <option value="MobilePayment">Mobile Payment</option>
+                                </select>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">Confirm Booking</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+}
+
+<!-- Courses End -->

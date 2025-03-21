@@ -1,0 +1,77 @@
+
+		/* Full height modal */
+		.full-height-modal .modal-dialog {
+			margin: 0;
+			position: fixed;
+			top: 0;
+			right: 0;
+			width: 30%; /* Adjust the width as needed */
+			height: 100%;
+			max-height: 100%;
+			transform: none;
+		  }
+		  
+		  .full-height-modal .modal-content {
+			height: 100%; /* Full height for the modal content */
+			border-radius: 0; /* Remove rounded corners */
+		  }
+		  
+		  .full-height-modal .modal-body {
+			overflow-y: auto; /* Enable scrolling for long content */
+		  }
+		  .header .top_nav_menu li {
+			padding: 0 !important; /* Loại bỏ padding giữa các menu */
+			margin-right: 15px; /* Giãn cách các menu */
+		  }
+		  
+		  .header .navbar_user li {
+			padding: 0 !important; /* Loại bỏ padding icon người dùng */
+			margin-right: 10px; /* Khoảng cách nhỏ giữa các icon */
+		  }
+		  
+		  .header .navbar_menu li a {
+			font-size: 1rem; /* Chữ lớn hơn */
+			padding: 5px 10px; /* Bỏ padding thừa */
+		  }
+		  
+		  .header .logo_container a {
+			font-size: 2rem; /* Logo to hơn */
+		  }
+		  
+		  .fa-shopping-cart, .fa-user, .fa-search {
+			font-size: 1.8rem; /* Icon lớn */
+		  }
+		  
+		  .badge {
+			font-size: 0.7rem; /* Badge to hơn */
+		  }
+		  .top_nav {
+            background-color: #333; /* Dark background for contrast */
+            padding: 10px 0;
+          }
+        
+          .scrolling-text {
+            
+            display: inline-block;
+            align-items: center;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 36px; /* Larger font size */
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6a00, #ee0979); /* Gradient background */
+            -webkit-background-clip: text; /* Makes the gradient apply to the text */
+            color: transparent; /* Text color becomes transparent for the gradient to show */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds a shadow for better readability */
+            animation: scroll-text 10s linear infinite;
+          }
+        
+          @keyframes scroll-text {
+            0% {
+              transform: translateX(100%); /* Start off the screen on the right */
+            }
+            100% {
+              transform: translateX(-100%); /* End off the screen on the left */
+            }
+          }
