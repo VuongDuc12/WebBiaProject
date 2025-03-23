@@ -8,57 +8,31 @@
                 <h4 class="text-primary">Peri Pool Areas</h4>
                 <h1 class="display-4 text-white mb-4">@table.Name - @table.Branch.Name</h1>
             </div>
-            <div class="row gy-4 gx-0 justify-content-center">
-                <div class="col-lg-8">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
                     <div class="card p-4 shadow">
                         <h2 class="text-center mb-4">Book @table.Name</h2>
-                        <form id="bookingForm" asp-action="BookTable" method="post">
+                        <form asp-controller="BookingPage" asp-action="BookTable" method="post">
                             @Html.AntiForgeryToken()
                             <!-- Hidden fields -->
                             <input type="hidden" name="TableId" value="@table.Id" />
                             <input type="hidden" name="BranchId" value="@table.Branch.Id" />
                             <input type="hidden" name="CustomerId" value="@ViewBag.CurrentCustomerId" />
 
-                            <!-- Booking Details -->
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Booking Date *</label>
-                                    <input type="date" class="form-control" name="StartTimeDate"
-                                           min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Booking Time *</label>
-                                    <input type="time" class="form-control" name="StartTimeTime" required>
-                                </div>
+                            <!-- Booking DateTime -->
+                            <div class="mb-3">
+                                <label class="form-label">Booking Date & Time *</label>
+                                <input type="datetime-local" class="form-control" name="StartTime"
+                                       value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
+                                       min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required>
                             </div>
 
-                            <!-- Prepayment Section -->
+                            <!-- Phone Number for Confirmation -->
                             <div class="mb-4">
-                                <h4 class="mb-3">Payment Options</h4>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="PaymentMethod"
-                                           id="payNow" value="Prepaid" checked>
-                                    <label class="form-check-label" for="payNow">
-                                        Pay Now (Deposit:)
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="PaymentMethod"
-                                           id="payLater" value="PayLater">
-                                    <label class="form-check-label" for="payLater">
-                                        Pay at Venue
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- Payment Method -->
-                            <div id="paymentMethods" class="mb-4">
-                                <h5>Select Payment Method</h5>
-                                <select class="form-select" name="PaymentType">
-                                    <option value="CreditCard">Credit Card</option>
-                                    <option value="BankTransfer">Bank Transfer</option>
-                                    <option value="MobilePayment">Mobile Payment</option>
-                                </select>
+                                <label class="form-label">Phone Number *</label>
+                                <input type="tel" class="form-control" name="PhoneNumber"
+                                       pattern="[0-9]{10}" placeholder="Enter 10-digit phone number"
+                                       title="Please enter a valid 10-digit phone number" required>
                             </div>
 
                             <!-- Submit Button -->

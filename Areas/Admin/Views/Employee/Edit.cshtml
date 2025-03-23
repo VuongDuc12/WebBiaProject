@@ -1,0 +1,40 @@
+﻿@model WebBiaProject.Models.Branch
+@{
+    ViewData["Title"] = "Sửa chi nhánh";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container my-3">
+    <h2>Sửa chi nhánh #@Model.Id</h2>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group mb-3">
+            <label asp-for="Name" class="form-label">Tên chi nhánh</label>
+            <input asp-for="Name" class="form-control" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="Address" class="form-label">Địa chỉ</label>
+            <input asp-for="Address" class="form-control" required />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="Phone" class="form-label">Số điện thoại</label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="Status" class="form-label">Trạng thái</label>
+            <select asp-for="Status" class="form-control">
+                <option value="Active">Hoạt động</option>
+                <option value="Inactive">Ngừng hoạt động</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+        <a href="@Url.Action("Index", "Branch")" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

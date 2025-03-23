@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Đặt Bàn Thành Công";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Use your default layout, adjust if different
+}
+
+<div class="container py-5 text-center">
+    <h1 class="display-4 text-success">Đặt Bàn Thành Công</h1>
+    <p class="lead">
+        Cảm ơn bạn đã đặt bàn! Đơn đặt bàn của bạn (ID: <strong>@ViewBag.ReservationId</strong>) đã được ghi nhận.
+    </p>
+    <p>
+        Vui lòng chờ nhân viên xác nhận đơn đặt của bạn qua số điện thoại bạn đã cung cấp.
+    </p>
+    <div class="mt-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg">Quay về Trang Chủ</a>
+        <a asp-controller="BookingPage" asp-action="Index" class="btn btn-outline-secondary btn-lg ml-2">Đặt Thêm Bàn</a>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Add any optional scripts here if needed -->
+}
