@@ -19,6 +19,7 @@
 	<ItemGroup>
 	  <Folder Include="Areas\Admin\Data\" />
 	  <Folder Include="Areas\Admin\Models\" />
-	  <Folder Include="Areas\Admin\ViewModel\" />
+	  <Folder Include="Areas\ManagerBranch\Data\" />
+	  <Folder Include="Areas\ManagerBranch\Models\" />
 	</ItemGroup>
 </Project>

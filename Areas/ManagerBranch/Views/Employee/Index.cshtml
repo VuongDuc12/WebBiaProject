@@ -1,0 +1,80 @@
+﻿@model List<WebBiaProject.Models.Employee>
+@{
+    ViewData["Title"] = "Danh sách nhân viên chi nhánh";
+    Layout = "~/Areas/ManagerBranch/Views/Shared/_LayoutManagerBranch.cshtml";
+}
+
+<style>
+    .btn-sm { padding: 5px; }
+    .fas { font-size: 14px; }
+    .action-btn { margin-right: 5px; }
+    .badge-custom { font-size: 0.9rem; padding: 0.5em 1em; }
+</style>
+
+<div class="container my-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Danh sách nhân viên</h2>
+        <div>
+            <a class="btn btn-primary p-2" href="@Url.Action("Create", "Employee")">+ Thêm nhân viên</a>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Tìm kiếm theo tên hoặc email">
+        </div>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col"><input type="checkbox"></th>
+                        <th scope="col">Mã NV</th>
+                        <th scope="col">Tên</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">SĐT</th>
+                        <th scope="col">Chi nhánh</th>
+                        <th scope="col">Vai trò</th>
+                        <th scope="col">Lương</th>
+                        <th scope="col">Ngày tạo</th>
+                        <th scope="col">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employee in Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>@employee.Id</td>
+                            <td>@employee.Name</td>
+                            <td>@employee.Email</td>
+                            <td>@employee.Phone</td>
+                            <td>@(employee.Branch?.Name ?? "Không xác định")</td>
+                            <td>@(employee.Role?.Name ?? "Không xác định")</td>
+                            <td>@employee.Salary?.ToString("N2")</td>
+                            <td>@employee.CreatedDate?.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Employee", new { id = employee.Id })"
+                                   class="btn btn-sm btn-primary action-btn" title="Sửa">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button class="btn btn-sm btn-danger action-btn delete-btn"
+                                        data-id="@employee.Id" title="Xóa">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">Không có nhân viên nào để hiển thị.</div>
+    }
+</div>
+

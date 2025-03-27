@@ -53,4 +53,6 @@ public partial class Invoice
 
     [InverseProperty("Invoice")]
     public virtual ICollection<ServiceProductDetail> ServiceProductDetails { get; set; } = new List<ServiceProductDetail>();
+    [Column(TypeName = "nvarchar(50)")]
+    public string? Status { get; set; }
 }

@@ -26,41 +26,57 @@ namespace NewAppBookShop.Controllers
         {
             return View();
         }
-       [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
                     var user = await userManager.FindByEmailAsync(model.Email);
+                    if (user == null)
+                    {
+                        ModelState.AddModelError("", "Không tìm thấy người dùng với email này.");
+                        return View(model);
+                    }
 
                     // Check the user's role and redirect accordingly
-                    if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Employee"))
+                    if (await userManager.IsInRoleAsync(user, "Admin"))
                     {
-                        return RedirectToAction("Index", "Admin"); // Redirect to Admin Dashboard for Admin or NhanVien
+                        return RedirectToAction("Index", "Home", new { area = "Admin" }); // Redirect to Admin Dashboard for Admin
+                    }
+                    else if (await userManager.IsInRoleAsync(user, "Manager"))
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "ManagerBranch" }); // Redirect to ManagerBranch for Manager
+                    }
+                    else if (await userManager.IsInRoleAsync(user, "Employee"))
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Employee" }); // Redirect to Home page for Employee
+                    }
+                    else if (await userManager.IsInRoleAsync(user, "Cashier"))
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Cashier" }); // Redirect to Home page for Cashier
                     }
                     else if (await userManager.IsInRoleAsync(user, "Customer"))
                     {
-                        return RedirectToAction("Index", "Home"); // Redirect to Home page for KhachHang
+                        return RedirectToAction("Index", "Home", new { area = "" }); // Redirect to Home page for Customer
                     }
                     else
                     {
-                        ModelState.AddModelError("", "You do not have the required role to log in.");
-                        return View();
+                        ModelState.AddModelError("", "Bạn không có vai trò phù hợp để đăng nhập.");
+                        return View(model);
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Email or password is incorrect.");
-                    return View();
+                    ModelState.AddModelError("", "Email hoặc mật khẩu không đúng.");
+                    return View(model);
                 }
             }
-            return View();
-        }
 
+            return View(model);
+        }
 
         public IActionResult Register()
         {

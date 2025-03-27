@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+    Layout = "~/Areas/ManagerBranch/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- [ breadcrumb ] start -->
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Trang chủ</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../dashboard/index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0)">Bảng điều khiển</a></li>
+                    <li class="breadcrumb-item" aria-current="page">Trang chủ</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+    <h2>Chào mừng bạn đến với hệ thống quản lý chi nhánh</h2>
+</div>
+<!-- [ breadcrumb ] end -->
+<!-- [ Nội dung chính ] start -->
+<div class="row">
+    <!-- [ Thống kê ] start -->
+    <div class="col-md-6 col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="mb-2 f-w-400 text-muted">Tổng số bàn</h6>
+                <h4 class="mb-3">45/50 <span class="badge bg-light-primary border border-primary"><i class="ti ti-trending-up"></i> 59.3%</span></h4>
+                <p class="mb-0 text-muted text-sm">Bạn đã tăng thêm <span class="text-primary">35,000</span> trong năm nay</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="mb-2 f-w-400 text-muted">Tổng số hóa đơn</h6>
+                <h4 class="mb-3">680 <span class="badge bg-light-success border border-success"><i class="ti ti-trending-up"></i> 70.5%</span></h4>
+                <p class="mb-0 text-muted text-sm">Bạn đã tăng thêm <span class="text-success">8,900</span> trong năm nay</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="mb-2 f-w-400 text-muted">Tổng số nhân viên</h6>
+                <h4 class="mb-3">16 <span class="badge bg-light-warning border border-warning"><i class="ti ti-trending-down"></i> 27.4%</span></h4>
+                <p class="mb-0 text-muted text-sm">Bạn đã tăng thêm <span class="text-warning">1,943</span> trong năm nay</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="mb-2 f-w-400 text-muted">Tổng doanh thu</h6>
+                <h4 class="mb-3">38.789.123 VND <span class="badge bg-light-danger border border-danger"><i class="ti ti-trending-down"></i> 27.4%</span></h4>
+                <p class="mb-0 text-muted text-sm">Bạn đã tăng thêm <span class="text-danger">$20,395</span> trong năm nay</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-xl-8">
+        <h5 class="mb-3">Lượt truy cập</h5>
+        <div class="card">
+            <div class="card-body">
+                <div id="visitor-chart"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xl-4">
+        <h5 class="mb-3">Tổng quan thu nhập</h5>
+        <div class="card">
+            <div class="card-body">
+                <h6 class="mb-2 f-w-400 text-muted">Thống kê tuần này</h6>
+                <h3 class="mb-3">31.088.000 VNĐ</h3>
+                <div id="income-overview-chart"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-xl-8">
+        <h5 class="mb-3">Đơn hàng gần đây</h5>
+        <div class="card tbl-card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-borderless mb-0">
+                        <thead>
+                            <tr>
+                                <th>MÃ THEO DÕI</th>
+                                <th>TÊN SẢN PHẨM</th>
+                                <th>TỔNG ĐƠN HÀNG</th>
+                                <th>TRẠNG THÁI</th>
+                                <th class="text-end">TỔNG TIỀN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#" class="text-muted">84564564</a></td>
+                                <td>Ống kính Camera</td>
+                                <td>40</td>
+                                <td><span class="d-flex align-items-center gap-2"><i class="fas fa-circle text-danger f-10 m-r-5"></i>Bị từ chối</span></td>
+                                <td class="text-end">$40,570</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-muted">84564564</a></td>
+                                <td>Laptop</td>
+                                <td>300</td>
+                                <td><span class="d-flex align-items-center gap-2"><i class="fas fa-circle text-warning f-10 m-r-5"></i>Chờ xử lý</span></td>
+                                <td class="text-end">$180,139</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-muted">84564564</a></td>
+                                <td>Điện thoại</td>
+                                <td>355</td>
+                                <td><span class="d-flex align-items-center gap-2"><i class="fas fa-circle text-success f-10 m-r-5"></i>Đã duyệt</span></td>
+                                <td class="text-end">$180,139</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-xl-4">
+        <h5 class="mb-3">Báo cáo phân tích</h5>
+        <div class="card">
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">Tăng trưởng tài chính<span class="h5 mb-0">+45.14%</span></a>
+                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">Tỷ lệ chi phí<span class="h5 mb-0">0.58%</span></a>
+                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">Rủi ro kinh doanh<span class="h5 mb-0">Thấp</span></a>
+            </div>
+            <div class="card-body px-2">
+                <div id="analytics-report-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>

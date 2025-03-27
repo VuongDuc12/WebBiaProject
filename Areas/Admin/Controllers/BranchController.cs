@@ -1,114 +1,88 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using WebBiaProject.Areas.Admin.ViewModel;
 using WebBiaProject.Data;
 using WebBiaProject.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace WebBiaProject.Controllers
+namespace WebBiaProject.Areas.Admin.Controllers
 {
-
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
     public class BranchController : Controller
     {
+        private readonly ILogger<BranchController> _logger;
         private readonly ApplicationDbContext _context;
 
-        public BranchController(ApplicationDbContext context)
+        public BranchController(ILogger<BranchController> logger, ApplicationDbContext context)
         {
+            _logger = logger;
             _context = context;
         }
 
-        // GET: Index
-        public IActionResult Index()
+        // GET: /Admin/Branch/Index
+        [HttpGet]
+        public IActionResult Index(string search)
         {
-            var branches = _context.Branches.ToList();
-            return View(branches);
+            var branches = _context.Branches.AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                branches = branches.Where(b => b.Name.Contains(search) || b.Address.Contains(search));
+                ViewBag.SearchQuery = search;
+            }
+
+            _logger.LogInformation("Accessed Index with search: {Search}", search);
+            return View(branches.ToList());
         }
 
-        // GET: Create
+        // GET: /Admin/Branch/Create
+        [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            _logger.LogInformation("Accessed Create GET action");
+            return View(new BranchViewModel());
         }
 
-        // POST: Create
+        // POST: /Admin/Branch/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Branch branch)
+        public async Task<IActionResult> Create([FromForm] BranchViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                branch.CreatedDate = DateTime.Now;
-                branch.CreatedBy = User.Identity.Name; // Hoặc lấy từ hệ thống đăng nhập
-                _context.Add(branch);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(branch);
-        }
+            _logger.LogInformation("Received POST request for Create with model data: Name={Name}, Address={Address}, Phone={Phone}, Status={Status}",
+                model.Name ?? "(null)", model.Address ?? "(null)", model.Phone ?? "(null)", model.Status ?? "(null)");
 
-        // GET: Edit
-        public IActionResult Edit(int id)
-        {
-            var branch = _context.Branches.Find(id);
-            if (branch == null)
-            {
-                return NotFound();
-            }
-            return View(branch);
-        }
+            _logger.LogInformation("Raw Form Data: Name={Name}, Address={Address}, Phone={Phone}, Status={Status}",
+                Request.Form["Name"], Request.Form["Address"], Request.Form["Phone"], Request.Form["Status"]);
 
-        // POST: Edit
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Branch branch)
-        {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
+                foreach (var state in ModelState)
                 {
-                    var existingBranch = _context.Branches.Find(branch.Id);
-                    if (existingBranch == null)
+                    foreach (var error in state.Value.Errors)
                     {
-                        return NotFound();
+                        _logger.LogWarning("ModelState Error for {Key}: {Error}", state.Key, error.ErrorMessage);
                     }
-
-                    existingBranch.Name = branch.Name;
-                    existingBranch.Address = branch.Address;
-                    existingBranch.Phone = branch.Phone;
-                    existingBranch.Status = branch.Status;
-                    existingBranch.UpdatedDate = DateTime.Now;
-                    existingBranch.UpdatedBy = User.Identity.Name;
-
-                    _context.Update(existingBranch);
-                    _context.SaveChanges();
-                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Branches.Any(e => e.Id == branch.Id))
-                    {
-                        return NotFound();
-                    }
-                    throw;
-                }
+                return View(model);
             }
-            return View(branch);
-        }
 
-        // POST: Delete
-        [HttpPost]
-        public JsonResult Delete(int id)
-        {
-            var branch = _context.Branches.Find(id);
-            if (branch == null)
+            var branch = new Branch
             {
-                return Json(new { success = false, message = "Không tìm thấy chi nhánh" });
-            }
+                Name = model.Name,
+                Address = model.Address,
+                Phone = model.Phone,
+                Status = model.Status,
+                CreatedDate = DateTime.Now
+            };
 
-            _context.Branches.Remove(branch);
-            _context.SaveChanges();
-            return Json(new { success = true });
+            _context.Branches.Add(branch);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("Branch created successfully: {Name}", model.Name);
+            TempData["Success"] = "Branch created successfully!";
+            return RedirectToAction(nameof(Index));
         }
     }
 }
