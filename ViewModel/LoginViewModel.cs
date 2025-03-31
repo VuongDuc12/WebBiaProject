@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NewAppBookShop.ViewModels
+namespace WebBiaProject.ViewModel
 {
     public class LoginViewModel
     {

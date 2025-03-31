@@ -1,0 +1,322 @@
+﻿@model IEnumerable<WebBiaProject.Models.Product>
+
+@{
+    ViewData["Title"] = "Quản lý phiên chơi";
+    Layout = "~/Areas/ManagerBranch/Views/Shared/_LayoutManagerBranch.cshtml";
+}
+
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10 gradient-text">Xem hóa đơn</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/ManagerBranch">Quản lý chi nhánh</a></li>
+                    <li class="breadcrumb-item"><a href="#">Xem hóa đơn</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Cột 1: Danh sách sản phẩm -->
+        <div class="col-md-3 col-container gradient-border">
+            <h5 class="section-title">Danh sách sản phẩm</h5>
+            <input type="text" class="form-control search-input" placeholder="Tìm kiếm sản phẩm..." />
+            <div class="table-wrapper">
+                <table class="table table-hover modern-table">
+                    <thead>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá (VND)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            <tr class="product-item">
+                                <td>@product.Name</td>
+                                <td>@product.Price.ToString("N0")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-add gradient-btn">+ Thêm sản phẩm</button>
+        </div>
+
+        <!-- Cột 2: Thông tin phiên chơi và sản phẩm đã thêm -->
+        <div class="col-md-6 col-container gradient-border">
+            <h5 class="section-title">Thông tin phiên chơi</h5>
+            <div class="bill-info">
+                <p><strong>Mã hóa đơn:</strong> HD001</p>
+                <p><strong>Ngày tạo:</strong> 29/03/2025</p>
+                <p><strong>Giờ vào chơi:</strong> 14:30</p>
+                <p><strong>Khách hàng:</strong> Nguyễn Văn A</p>
+                <p><strong>Số điện thoại:</strong> 0909123456</p>
+            </div>
+            <table class="table modern-table">
+                <thead>
+                    <tr>
+                        <th>Tên bàn</th>
+                        <th>Thời gian sử dụng</th>
+                        <th>Đơn giá (VND/giờ)</th>
+                        <th>Thành tiền (VND)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bàn Pool #1</td>
+                        <td>1.5 giờ</td>
+                        <td>50,000</td>
+                        <td>75,000</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <h5 class="section-title">Sản phẩm đã thêm</h5>
+            <table class="table modern-table">
+                <thead>
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá (VND)</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nước ngọt</td>
+                        <td>1</td>
+                        <td>20,000</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">+</button>
+                            <button class="btn btn-sm btn-outline-primary">-</button>
+                            <button class="btn btn-sm btn-outline-danger">Xóa</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Cột 3: Tổng tiền và thanh toán -->
+        <div class="col-md-3 col-container gradient-border">
+            <div class="total-section">
+                <h5 class="section-title">Tổng tiền</h5>
+                <p><strong>Phí chơi:</strong> <span>75,000</span> VND</p>
+                <p><strong>Phí sản phẩm:</strong> <span>20,000</span> VND</p>
+                <p><strong>Khuyến mãi:</strong> <span>0</span> VND</p>
+                <hr />
+                <p><strong>Tổng cộng:</strong> <span>95,000</span> VND</p>
+                <button class="btn btn-pay gradient-btn">Thanh toán</button>
+                <button class="btn btn-print gradient-btn">In hóa đơn</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container-fluid {
+        padding: 40px;
+        background: linear-gradient(135deg, #e0eafc, #cfdef3);
+    }
+
+    .col-container {
+        border: none;
+        border-radius: 15px;
+        padding: 25px;
+        background: #ffffff;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .col-container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+    .gradient-border {
+        border: 2px solid transparent;
+        background: linear-gradient(white, white) padding-box, linear-gradient(45deg, #007bff, #00c6ff) border-box;
+    }
+
+    .section-title {
+        color: #1e3a8a;
+        font-weight: 700;
+        margin-bottom: 25px;
+        background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .modern-table {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+    }
+
+        .modern-table th {
+            background: linear-gradient(45deg, #dbeafe, #e0eafc);
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .modern-table td {
+            vertical-align: middle;
+            color: #374151;
+        }
+
+    .product-item {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .product-item:hover {
+            background: linear-gradient(90deg, #f0f9ff, #dbeafe);
+            transform: scale(1.02);
+        }
+
+    .search-input {
+        margin-bottom: 20px;
+        border-radius: 25px;
+        padding: 10px 20px;
+        border: 1px solid #bfdbfe;
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        transition: border-color 0.3s ease;
+    }
+
+        .search-input:focus {
+            border-color: #3b82f6;
+            outline: none;
+        }
+
+    .bill-info {
+        background: #f0f9ff;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        border-left: 5px solid #3b82f6;
+    }
+
+        .bill-info p {
+            margin: 8px 0;
+            color: #1f2937;
+        }
+
+    .total-section {
+        padding: 25px;
+        border-radius: 15px;
+        background: #ffffff;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+        .total-section p {
+            margin: 12px 0;
+            color: #374151;
+        }
+
+        .total-section strong {
+            color: #1e3a8a;
+        }
+
+        .total-section hr {
+            margin: 20px 0;
+            border-color: #e5e7eb;
+        }
+
+    .gradient-btn {
+        width: 100%;
+        margin-top: 20px;
+        padding: 12px;
+        border-radius: 25px;
+        font-weight: 600;
+        color: #fff;
+        border: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-add {
+        background: linear-gradient(45deg, #007bff, #00c6ff);
+    }
+
+        .btn-add:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+        }
+
+    .btn-pay {
+        background: linear-gradient(45deg, #22c55e, #4ade80);
+    }
+
+        .btn-pay:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.4);
+        }
+
+    .btn-print {
+        background: linear-gradient(45deg, #6b7280, #9ca3af);
+    }
+
+        .btn-print:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(107, 114, 128, 0.4);
+        }
+
+    .btn-sm {
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 13px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-primary {
+        border: 1px solid #3b82f6;
+        color: #3b82f6;
+    }
+
+        .btn-outline-primary:hover {
+            background: #3b82f6;
+            color: #fff;
+        }
+
+    .btn-outline-danger {
+        border: 1px solid #ef4444;
+        color: #ef4444;
+    }
+
+        .btn-outline-danger:hover {
+            background: #ef4444;
+            color: #fff;
+        }
+
+    /* Thêm thanh cuộn cho bảng sản phẩm */
+    .table-wrapper {
+        max-height: 300px; /* Giới hạn chiều cao bảng */
+        overflow-y: auto; /* Thêm thanh cuộn dọc */
+        margin-bottom: 20px; /* Khoảng cách với nút Thêm sản phẩm */
+    }
+
+        /* Tùy chỉnh thanh cuộn */
+        .table-wrapper::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #3b82f6, #00c6ff);
+            border-radius: 10px;
+        }
+
+            .table-wrapper::-webkit-scrollbar-thumb:hover {
+                background: linear-gradient(45deg, #2563eb, #00b4ff);
+            }
+</style>

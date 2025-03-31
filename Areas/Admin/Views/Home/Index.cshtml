@@ -2,308 +2,347 @@
     ViewData["Title"] = "Trang chủ";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
- <!-- [ breadcrumb ] start -->
-      <div class="page-header">
-        <div class="page-block">
-          <div class="row align-items-center">
+<!-- [ breadcrumb ] bắt đầu -->
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
             <div class="col-md-12">
-              <div class="page-header-title">
-                <h5 class="m-b-10">Home</h5>
-              </div>
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="javascript: void(0)">Dashboard</a></li>
-                <li class="breadcrumb-item" aria-current="page">Home</li>
-              </ul>
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Trang chủ</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../dashboard/index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0)">Bảng điều khiển</a></li>
+                    <li class="breadcrumb-item" aria-current="page">Trang chủ</li>
+                </ul>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
-        <h2>Chào mừng bạn đến với Admin</h2>
     </div>
-      <!-- [ breadcrumb ] end -->
-      <!-- [ Main Content ] start -->
-      <div class="row">
-        <!-- [ sample-page ] start -->
-        <div class="col-md-6 col-xl-3">
-          <div class="card">
+</div>
+<div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+    <h2>Chào mừng bạn đến với Quản trị</h2>
+</div>
+<!-- [ breadcrumb ] kết thúc -->
+<!-- [ Nội dung chính ] bắt đầu -->
+<div class="row">
+    <!-- [ trang mẫu ] bắt đầu -->
+    <!-- [ Thống kê ] start -->
+    <div class="col-md-6 col-xl-3">
+        <div class="card">
             <div class="card-body">
-              <h6 class="mb-2 f-w-400 text-muted">Total Page Views</h6>
-              <h4 class="mb-3">4,42,236 <span class="badge bg-light-primary border border-primary"><i
-                    class="ti ti-trending-up"></i> 59.3%</span></h4>
-              <p class="mb-0 text-muted text-sm">You made an extra <span class="text-primary">35,000</span> this year
-              </p>
+                <h6 class="mb-2 f-w-400 text-muted">Tổng số bàn</h6>
+                <h4 class="mb-3">140/260 <span class="badge bg-light-primary border border-primary"><i class="ti ti-trending-up"></i> 59.3%</span></h4>
+                <p class="mb-0 text-muted text-sm">Bạn đã tăng thêm <span class="text-primary">35,000</span> trong năm nay</p>
             </div>
-          </div>
         </div>
-        <div class="col-md-6 col-xl-3">
-          <div class="card">
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card">
             <div class="card-body">
-              <h6 class="mb-2 f-w-400 text-muted">Total Users</h6>
-              <h4 class="mb-3">78,250 <span class="badge bg-light-success border border-success"><i
-                    class="ti ti-trending-up"></i> 70.5%</span></h4>
-              <p class="mb-0 text-muted text-sm">You made an extra <span class="text-success">8,900</span> this year</p>
+                <h6 class="mb-2 f-w-400 text-muted">Tổng số hóa đơn</h6>
+                <h4 class="mb-3">1223 <span class="badge bg-light-success border border-success"><i class="ti ti-trending-up"></i> 70.5%</span></h4>
+                <p class="mb-0 text-muted text-sm">Bạn đã tăng thêm <span class="text-success">8,900</span> trong năm nay</p>
             </div>
-          </div>
         </div>
-        <div class="col-md-6 col-xl-3">
-          <div class="card">
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card">
             <div class="card-body">
-              <h6 class="mb-2 f-w-400 text-muted">Total Order</h6>
-              <h4 class="mb-3">18,800 <span class="badge bg-light-warning border border-warning"><i
-                    class="ti ti-trending-down"></i> 27.4%</span></h4>
-              <p class="mb-0 text-muted text-sm">You made an extra <span class="text-warning">1,943</span> this year</p>
+                <h6 class="mb-2 f-w-400 text-muted">Tổng số nhân viên</h6>
+                <h4 class="mb-3">168 <span class="badge bg-light-warning border border-warning"><i class="ti ti-trending-down"></i> 27.4%</span></h4>
+                <p class="mb-0 text-muted text-sm">Bạn đã tăng thêm <span class="text-warning">1,943</span> trong năm nay</p>
             </div>
-          </div>
         </div>
-        <div class="col-md-6 col-xl-3">
-          <div class="card">
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card">
             <div class="card-body">
-              <h6 class="mb-2 f-w-400 text-muted">Total Sales</h6>
-              <h4 class="mb-3">$35,078 <span class="badge bg-light-danger border border-danger"><i
-                    class="ti ti-trending-down"></i> 27.4%</span></h4>
-              <p class="mb-0 text-muted text-sm">You made an extra <span class="text-danger">$20,395</span> this year
-              </p>
+                <h6 class="mb-2 f-w-400 text-muted">Tổng doanh thu</h6>
+                <h4 class="mb-3">38.789.123.912 VND <span class="badge bg-light-danger border border-danger"><i class="ti ti-trending-up"></i> 27.4%</span></h4>
+                <p class="mb-0 text-muted text-sm">Bạn đã tăng thêm <span class="text-danger">$20,395</span> trong năm nay</p>
             </div>
-          </div>
         </div>
+    </div>
 
-        <div class="col-md-12 col-xl-8">
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <h5 class="mb-0">Unique Visitor</h5>
+    <div class="col-md-12 col-xl-8">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="mb-0">Khách truy cập duy nhất</h5>
             <ul class="nav nav-pills justify-content-end mb-0" id="chart-tab-tab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="chart-tab-home-tab" data-bs-toggle="pill" data-bs-target="#chart-tab-home"
-                  type="button" role="tab" aria-controls="chart-tab-home" aria-selected="true">Month</button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="chart-tab-profile-tab" data-bs-toggle="pill"
-                  data-bs-target="#chart-tab-profile" type="button" role="tab" aria-controls="chart-tab-profile"
-                  aria-selected="false">Week</button>
-              </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="chart-tab-home-tab" data-bs-toggle="pill" data-bs-target="#chart-tab-home"
+                            type="button" role="tab" aria-controls="chart-tab-home" aria-selected="true">
+                        Tháng
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="chart-tab-profile-tab" data-bs-toggle="pill"
+                            data-bs-target="#chart-tab-profile" type="button" role="tab" aria-controls="chart-tab-profile"
+                            aria-selected="false">
+                        Tuần
+                    </button>
+                </li>
             </ul>
-          </div>
-          <div class="card">
+        </div>
+        <div class="card">
             <div class="card-body">
-              <div class="tab-content" id="chart-tab-tabContent">
-                <div class="tab-pane" id="chart-tab-home" role="tabpanel" aria-labelledby="chart-tab-home-tab"
-                  tabindex="0">
-                  <div id="visitor-chart-1"></div>
+                <div class="tab-content" id="chart-tab-tabContent">
+                    <div class="tab-pane" id="chart-tab-home" role="tabpanel" aria-labelledby="chart-tab-home-tab"
+                         tabindex="0">
+                        <div id="visitor-chart-1"></div>
+                    </div>
+                    <div class="tab-pane show active" id="chart-tab-profile" role="tabpanel"
+                         aria-labelledby="chart-tab-profile-tab" tabindex="0">
+                        <div id="visitor-chart"></div>
+                    </div>
                 </div>
-                <div class="tab-pane show active" id="chart-tab-profile" role="tabpanel"
-                  aria-labelledby="chart-tab-profile-tab" tabindex="0">
-                  <div id="visitor-chart"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xl-4">
+        <h5 class="mb-3">Tổng quan thu nhập</h5>
+        <div class="card">
+            <div class="card-body">
+                <h6 class="mb-2 f-w-400 text-muted">Thống kê tuần này</h6>
+                <h3 class="mb-3">21,237,650VNĐ</h3>
+                <div id="income-overview-chart"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xl-8">
+        <h5 class="mb-3">Đơn hàng gần đây</h5>
+        <div class="card tbl-card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-borderless mb-0">
+                        <thead>
+                            <tr>
+                                <th>MÃ HÓA ĐƠN</th>
+                                <th>TÊN KHÁCH HÀNG</th>
+                                <th>CƠ SỞ</th>
+                                <th>NGÀY TẠO</th>
+                                <th>TRẠNG THÁI</th>
+                                <th class="text-end">TỔNG SỐ TIỀN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#" class="text-muted">HD001234</a></td>
+                                <td>Nguyễn Văn An</td>
+                                <td>Chi nhánh Hà Nội</td>
+                                <td>28/03/2025</td>
+                                <td>
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fas fa-circle text-danger f-10 m-r-5"></i>Từ chối
+                                    </span>
+                                </td>
+                                <td class="text-end">1,200,000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-muted">HD001235</a></td>
+                                <td>Trần Thị Bình</td>
+                                <td>Chi nhánh TP.HCM</td>
+                                <td>27/03/2025</td>
+                                <td>
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fas fa-circle text-warning f-10 m-r-5"></i>Đang chờ
+                                    </span>
+                                </td>
+                                <td class="text-end">5,500,000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-muted">HD001236</a></td>
+                                <td>Lê Văn Cường</td>
+                                <td>Chi nhánh Đà Nẵng</td>
+                                <td>26/03/2025</td>
+                                <td>
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fas fa-circle text-success f-10 m-r-5"></i>Đã duyệt
+                                    </span>
+                                </td>
+                                <td class="text-end">3,750,000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-muted">HD001237</a></td>
+                                <td>Phạm Thị Dung</td>
+                                <td>Chi nhánh Hải Phòng</td>
+                                <td>25/03/2025</td>
+                                <td>
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fas fa-circle text-success f-10 m-r-5"></i>Đã duyệt
+                                    </span>
+                                </td>
+                                <td class="text-end">2,300,000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-muted">HD001238</a></td>
+                                <td>Hoàng Văn Em</td>
+                                <td>Chi nhánh Hà Nội</td>
+                                <td>24/03/2025</td>
+                                <td>
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fas fa-circle text-warning f-10 m-r-5"></i>Đang chờ
+                                    </span>
+                                </td>
+                                <td class="text-end">7,800,000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-muted">HD001239</a></td>
+                                <td>Vũ Thị Hoa</td>
+                                <td>Chi nhánh TP.HCM</td>
+                                <td>23/03/2025</td>
+                                <td>
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fas fa-circle text-danger f-10 m-r-5"></i>Từ chối
+                                    </span>
+                                </td>
+                                <td class="text-end">900,000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-muted">HD001240</a></td>
+                                <td>Đỗ Văn Khánh</td>
+                                <td>Chi nhánh Đà Nẵng</td>
+                                <td>22/03/2025</td>
+                                <td>
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fas fa-circle text-success f-10 m-r-5"></i>Đã duyệt
+                                    </span>
+                                </td>
+                                <td class="text-end">4,500,000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-muted">HD001241</a></td>
+                                <td>Bùi Thị Lan</td>
+                                <td>Chi nhánh Hải Phòng</td>
+                                <td>21/03/2025</td>
+                                <td>
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fas fa-circle text-warning f-10 m-r-5"></i>Đang chờ
+                                    </span>
+                                </td>
+                                <td class="text-end">6,200,000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-muted">HD001242</a></td>
+                                <td>Ngô Văn Minh</td>
+                                <td>Chi nhánh Hà Nội</td>
+                                <td>20/03/2025</td>
+                                <td>
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fas fa-circle text-success f-10 m-r-5"></i>Đã duyệt
+                                    </span>
+                                </td>
+                                <td class="text-end">3,100,000 VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#" class="text-muted">HD001243</a></td>
+                                <td>Trương Thị Ngọc</td>
+                                <td>Chi nhánh TP.HCM</td>
+                                <td>19/03/2025</td>
+                                <td>
+                                    <span class="d-flex align-items-center gap-2">
+                                        <i class="fas fa-circle text-danger f-10 m-r-5"></i>Từ chối
+                                    </span>
+                                </td>
+                                <td class="text-end">2,000,000 VNĐ</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-        <div class="col-md-12 col-xl-4">
-          <h5 class="mb-3">Income Overview</h5>
-          <div class="card">
-            <div class="card-body">
-              <h6 class="mb-2 f-w-400 text-muted">This Week Statistics</h6>
-              <h3 class="mb-3">$7,650</h3>
-              <div id="income-overview-chart"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-12 col-xl-8">
-          <h5 class="mb-3">Recent Orders</h5>
-          <div class="card tbl-card">
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-hover table-borderless mb-0">
-                  <thead>
-                    <tr>
-                      <th>TRACKING NO.</th>
-                      <th>PRODUCT NAME</th>
-                      <th>TOTAL ORDER</th>
-                      <th>STATUS</th>
-                      <th class="text-end">TOTAL AMOUNT</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Camera Lens</td>
-                      <td>40</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                      </td>
-                      <td class="text-end">$40,570</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Laptop</td>
-                      <td>300</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                      </td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Mobile</td>
-                      <td>355</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span></td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Camera Lens</td>
-                      <td>40</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                      </td>
-                      <td class="text-end">$40,570</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Laptop</td>
-                      <td>300</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                      </td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Mobile</td>
-                      <td>355</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span></td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Camera Lens</td>
-                      <td>40</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                      </td>
-                      <td class="text-end">$40,570</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Laptop</td>
-                      <td>300</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                      </td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Mobile</td>
-                      <td>355</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span></td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Mobile</td>
-                      <td>355</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span></td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12 col-xl-4">
-          <h5 class="mb-3">Analytics Report</h5>
-          <div class="card">
+    </div>
+    <div class="col-md-12 col-xl-4">
+        <h5 class="mb-3">Báo cáo phân tích</h5>
+        <div class="card">
             <div class="list-group list-group-flush">
-              <a href="#"
-                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">Company
-                Finance Growth<span class="h5 mb-0">+45.14%</span></a>
-              <a href="#"
-                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">Company
-                Expenses Ratio<span class="h5 mb-0">0.58%</span></a>
-              <a href="#"
-                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">Business
-                Risk Cases<span class="h5 mb-0">Low</span></a>
+                <a href="#"
+                   class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
+                    Tăng trưởng tài chính công ty
+                    <span class="h5 mb-0">+45.14%</span>
+                </a>
+                <a href="#"
+                   class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
+                    Tỷ lệ chi phí công ty
+                    <span class="h5 mb-0">0.58%</span>
+                </a>
+                <a href="#"
+                   class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">
+                    Rủi ro kinh doanh
+                    <span class="h5 mb-0">Thấp</span>
+                </a>
             </div>
             <div class="card-body px-2">
-              <div id="analytics-report-chart"></div>
+                <div id="analytics-report-chart"></div>
             </div>
-          </div>
         </div>
+    </div>
 
-        <div class="col-md-12 col-xl-8">
-          <h5 class="mb-3">Sales Report</h5>
-          <div class="card">
+    <div class="col-md-12 col-xl-8">
+        <h5 class="mb-3">Báo cáo doanh thu</h5>
+        <div class="card">
             <div class="card-body">
-              <h6 class="mb-2 f-w-400 text-muted">This Week Statistics</h6>
-              <h3 class="mb-0">$7,650</h3>
-              <div id="sales-report-chart"></div>
+                <h6 class="mb-2 f-w-400 text-muted">Thống kê tuần này</h6>
+                <h3 class="mb-0">$7,650</h3>
+                <div id="sales-report-chart"></div>
             </div>
-          </div>
         </div>
-        <div class="col-md-12 col-xl-4">
-          <h5 class="mb-3">Transaction History</h5>
-          <div class="card">
+    </div>
+    <div class="col-md-12 col-xl-4">
+        <h5 class="mb-3">Lịch sử giao dịch</h5>
+        <div class="card">
             <div class="list-group list-group-flush">
-              <a href="#" class="list-group-item list-group-item-action">
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <div class="avtar avtar-s rounded-circle text-success bg-light-success">
-                      <i class="ti ti-gift f-18"></i>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="avtar avtar-s rounded-circle text-success bg-light-success">
+                                <i class="ti ti-gift f-18"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h6 class="mb-1">Đơn hàng #002434</h6>
+                            <p class="mb-0 text-muted">Hôm nay, 2:00 sáng</p>
+                        </div>
+                        <div class="flex-shrink-0 text-end">
+                            <h6 class="mb-1">+ $1,430</h6>
+                            <p class="mb-0 text-muted">78%</p>
+                        </div>
                     </div>
-                  </div>
-                  <div class="flex-grow-1 ms-3">
-                    <h6 class="mb-1">Order #002434</h6>
-                    <p class="mb-0 text-muted">Today, 2:00 AM</P>
-                  </div>
-                  <div class="flex-shrink-0 text-end">
-                    <h6 class="mb-1">+ $1,430</h6>
-                    <p class="mb-0 text-muted">78%</P>
-                  </div>
-                </div>
-              </a>
-              <a href="#" class="list-group-item list-group-item-action">
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <div class="avtar avtar-s rounded-circle text-primary bg-light-primary">
-                      <i class="ti ti-message-circle f-18"></i>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="avtar avtar-s rounded-circle text-primary bg-light-primary">
+                                <i class="ti ti-message-circle f-18"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h6 class="mb-1">Đơn hàng #984947</h6>
+                            <p class="mb-0 text-muted">5 tháng 8, 1:45 chiều</p>
+                        </div>
+                        <div class="flex-shrink-0 text-end">
+                            <h6 class="mb-1">- $302</h6>
+                            <p class="mb-0 text-muted">8%</p>
+                        </div>
                     </div>
-                  </div>
-                  <div class="flex-grow-1 ms-3">
-                    <h6 class="mb-1">Order #984947</h6>
-                    <p class="mb-0 text-muted">5 August, 1:45 PM</P>
-                  </div>
-                  <div class="flex-shrink-0 text-end">
-                    <h6 class="mb-1">- $302</h6>
-                    <p class="mb-0 text-muted">8%</P>
-                  </div>
-                </div>
-              </a>
-              <a href="#" class="list-group-item list-group-item-action">
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <div class="avtar avtar-s rounded-circle text-danger bg-light-danger">
-                      <i class="ti ti-settings f-18"></i>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="avtar avtar-s rounded-circle text-danger bg-light-danger">
+                                <i class="ti ti-settings f-18"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h6 class="mb-1">Đơn hàng #988784</h6>
+                            <p class="mb-0 text-muted">7 giờ trước</p>
+                        </div>
+                        <div class="flex-shrink-0 text-end">
+                            <h6 class="mb-1">- $682</h6>
+                            <p class="mb-0 text-muted">16%</p>
+                        </div>
                     </div>
-                  </div>
-                  <div class="flex-grow-1 ms-3">
-                    <h6 class="mb-1">Order #988784</h6>
-                    <p class="mb-0 text-muted">7 hours ago</P>
-                  </div>
-                  <div class="flex-shrink-0 text-end">
-                    <h6 class="mb-1">- $682</h6>
-                    <p class="mb-0 text-muted">16%</P>
-                  </div>
-                </div>
-              </a>
+                </a>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+</div>

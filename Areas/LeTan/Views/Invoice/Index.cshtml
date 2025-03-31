@@ -1,0 +1,94 @@
+﻿@model List<WebBiaProject.Models.Invoice>
+@{
+    ViewData["Title"] = "Danh sách hóa đơn chi nhánh";
+    Layout = "~/Areas/LeTan/Views/Shared/_LayoutLeTan.cshtml";
+}
+
+<style>
+    .btn-sm { padding: 5px; }
+    .fas { font-size: 14px; }
+    .action-btn { margin-right: 5px; }
+    .badge-custom { font-size: 0.9rem; padding: 0.5em 1em; }
+</style>
+
+<div class="container my-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Danh sách hóa đơn</h2>
+        <div>
+            <!-- Có thể thêm nút tạo hóa đơn nếu cần -->
+            <!-- <a class="btn btn-primary p-2" href="@Url.Action("Create", "Invoice")">+ Thêm hóa đơn</a> -->
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Tìm kiếm theo mã hóa đơn hoặc tên khách hàng">
+        </div>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col"><input type="checkbox"></th>
+                        <th scope="col">Mã hóa đơn</th>
+                        <th scope="col">Tên khách hàng</th>
+                        <th scope="col">Chi nhánh</th>
+                        <th scope="col">Ngày tạo</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Tổng tiền</th>
+                        <th scope="col">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var invoice in Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>HD@(invoice.Id.ToString("D6"))</td>
+                            <td>@(invoice.Customer?.Name ?? "Không xác định")</td>
+                            <td>@(invoice.Branch?.Name ?? "Không xác định")</td>
+                            <td>@invoice.CreatedDate?.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>
+                                @switch (invoice.Status)
+                                {
+                                    case "Từ chối":
+                                        <span class="badge badge-custom bg-danger">Từ chối</span>
+                                        break;
+                                    case "Đang chờ":
+                                        <span class="badge badge-custom bg-warning">Đang chờ</span>
+                                        break;
+                                    case "Đã duyệt":
+                                        <span class="badge badge-custom bg-success">Đã duyệt</span>
+                                        break;
+                                    default:
+                                        <span class="badge badge-custom bg-secondary">@(invoice.Status ?? "Không xác định")</span>
+                                        break;
+                                }
+                            </td>
+                            <td>@invoice.TotalAmount.ToString("N2") VNĐ</td>
+                            <td>
+                                <!-- Có thể thêm nút chỉnh sửa nếu cần -->
+                                <a href="@Url.Action("Edit", "Invoice", new { id = invoice.Id })"
+                                   class="btn btn-sm btn-primary action-btn" title="Sửa">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <!-- Nút xóa (nếu cần) -->
+                                <button class="btn btn-sm btn-danger action-btn delete-btn"
+                                        data-id="@invoice.Id" title="Xóa">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">Không có hóa đơn nào để hiển thị.</div>
+    }
+</div>

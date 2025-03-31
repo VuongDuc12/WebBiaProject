@@ -82,8 +82,8 @@
                             <span class="pc-arrow"><i class="fas fa-chevron-right"></i></span>
                         </a>
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="/admin/">Xem hoạt động</a></li>
-                            <li class="pc-item"><a class="pc-link" href="/Author/Search">Theo dõi doanh thu</a></li>
+                            <li class="pc-item"><a class="pc-link" href="/managerbranch/BilliardTable">Xem hoạt động</a></li>
+                            <li class="pc-item"><a class="pc-link" href="/managerbranch/invoice">Theo dõi doanh thu</a></li>
                             <li class="pc-item"><a class="pc-link" href="/Author/Search">Quản lý kho nguyên liệu</a></li>
                             <li class="pc-item"><a class="pc-link" href="/Author/Search">Nhập hàng & xuất kho</a></li>
                         </ul>
@@ -309,7 +309,7 @@
               <i class="ti ti-wallet"></i>
               <span>Billing</span>
             </a>
-            <a href="#!" class="dropdown-item">
+                                    <a href="/Account/Logout" class="dropdown-item">
               <i class="ti ti-power"></i>
               <span>Logout</span>
             </a>
@@ -356,60 +356,165 @@
 
     </div>
   </div>
-  <!-- [ Main Content ] end -->
-  <footer class="pc-footer">
-    <div class="footer-wrapper container-fluid">
-      <div class="row">
-        <div class="col-sm my-1">
-          <p class="m-0"
-            >Mantis &#9829; crafted by Team <a href="https://themeforest.net/user/codedthemes" target="_blank">Codedthemes</a> Distributed by <a href="https://themewagon.com/">ThemeWagon</a>.</p
-          >
-        </div>
-        <div class="col-auto my-1">
-          <ul class="list-inline footer-link mb-0">
-            <li class="list-inline-item"><a href="~/index.html">Home</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1055;">
+        <!-- Success Toast -->
+        @if (TempData["Success"] != null)
+        {
+            <div id="successToast" class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+                <div class="toast-header bg-success text-white shadow-sm">
+                    <i class="fas fa-check-circle me-2 animate-icon"></i>
+                    <strong class="me-auto">Thành công</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-light text-dark animate-body">
+                    @TempData["Success"]
+                </div>
+            </div>
+        }
 
-  <!-- [Page Specific JS] start -->
-  <script src="~/assets/js/plugins/apexcharts.min.js"></script>
-  <script src="~/assets/js/pages/dashboard-default.js"></script>
-  <!-- [Page Specific JS] end -->
-  <!-- Required Js -->
-  <script src="~/assets/js/plugins/popper.min.js"></script>
-  <script src="~/assets/js/plugins/simplebar.min.js"></script>
-  <script src="~/assets/js/plugins/bootstrap.min.js"></script>
-  <script src="~/assets/js/fonts/custom-font.js"></script>
-  <script src="~/assets/js/pcoded.js"></script>
-  <script src="~/assets/js/plugins/feather.min.js"></script>
+        <!-- Error Toast -->
+        @if (TempData["Error"] != null)
+        {
+            <div id="errorToast" class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+                <div class="toast-header bg-danger text-white shadow-sm">
+                    <i class="fas fa-exclamation-circle me-2 animate-icon"></i>
+                    <strong class="me-auto">Lỗi</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-light text-dark animate-body">
+                    @TempData["Error"]
+                </div>
+            </div>
+        }
+
+        <!-- Warning Toast -->
+        @if (TempData["Warning"] != null)
+        {
+            <div id="warningToast" class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+                <div class="toast-header bg-warning text-dark shadow-sm">
+                    <i class="fas fa-exclamation-triangle me-2 animate-icon"></i>
+                    <strong class="me-auto">Cảnh báo</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-light text-dark animate-body">
+                    @TempData["Warning"]
+                </div>
+            </div>
+        }
+
+        <!-- Info Toast -->
+        @if (TempData["Info"] != null)
+        {
+            <div id="infoToast" class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+                <div class="toast-header bg-info text-white shadow-sm">
+                    <i class="fas fa-info-circle me-2 animate-icon"></i>
+                    <strong class="me-auto">Thông tin</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-light text-dark animate-body">
+                    @TempData["Info"]
+                </div>
+            </div>
+        }
+    </div>
+
+    <style>
+
+    </style>
+
+
+    <!-- [ Main Content ] end -->
+    <footer class="pc-footer">
+        <div class="footer-wrapper container-fluid">
+            <div class="row">
+                <div class="col-sm my-1">
+                    <p class="m-0">Peri Pool; crafted by Team <a href="https://themeforest.net/user/codedthemes" target="_blank">Nhóm 7- 64KTPM1</a> Distributed by <a href="https://themewagon.com/">Ducdev04</a>.</p>
+                </div>
+                <div class="col-auto my-1">
+                    <ul class="list-inline footer-link mb-0">
+                        <li class="list-inline-item"><a href="~/index.html">Home</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- [Page Specific JS] start -->
+    <script src="~/assets/js/plugins/apexcharts.min.js"></script>
+    <script src="~/assets/js/pages/dashboard-default.js"></script>
+    <!-- [Page Specific JS] end -->
+    <!-- Required Js -->
+    <script src="~/assets/js/plugins/popper.min.js"></script>
+    <script src="~/assets/js/plugins/simplebar.min.js"></script>
+    <script src="~/assets/js/plugins/bootstrap.min.js"></script>
+    <script src="~/assets/js/fonts/custom-font.js"></script>
+    <script src="~/assets/js/pcoded.js"></script>
+    <script src="~/assets/js/plugins/feather.min.js"></script>
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
     @RenderSection("Scripts", required: false)
-    
-  <script>layout_change('light');</script>
-  
-  
-  
-  
-  <script>change_box_container('false');</script>
-  
-  
-  
-  <script>layout_rtl_change('false');</script>
-  
-  
-  <script>preset_change("preset-1");</script>
-  
-  
-  <script>font_change("Public-Sans");</script>
-  
-    
+    <!-- Script để đảm bảo toast hoạt động -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var successToastEl = document.getElementById('successToast');
+            var errorToastEl = document.getElementById('errorToast');
+            var warningToastEl = document.getElementById('warningToast');
+            var infoToastEl = document.getElementById('infoToast');
+
+            if (successToastEl) {
+                var successToast = new bootstrap.Toast(successToastEl, {
+                    autohide: true,
+                    delay: 5000 // 5 giây
+                });
+                successToast.show();
+            }
+
+            if (errorToastEl) {
+                var errorToast = new bootstrap.Toast(errorToastEl, {
+                    autohide: true,
+                    delay: 5000
+                });
+                errorToast.show();
+            }
+
+            if (warningToastEl) {
+                var warningToast = new bootstrap.Toast(warningToastEl, {
+                    autohide: true,
+                    delay: 5000
+                });
+                warningToast.show();
+            }
+
+            if (infoToastEl) {
+                var infoToast = new bootstrap.Toast(infoToastEl, {
+                    autohide: true,
+                    delay: 5000
+                });
+                infoToast.show();
+            }
+        });
+    </script>
+    <script>layout_change('light');</script>
+
+
+
+
+    <script>change_box_container('false');</script>
+
+
+
+    <script>layout_rtl_change('false');</script>
+
+
+    <script>preset_change("preset-1");</script>
+
+
+    <script>font_change("Public-Sans");</script>
+
+
 
 </body>
 <!-- [Body] end -->

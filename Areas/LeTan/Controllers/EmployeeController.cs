@@ -6,9 +6,9 @@ using Microsoft.Extensions.Logging;
 using WebBiaProject.Data;
 using WebBiaProject.Models;
 
-namespace WebBiaProject.Areas.ManagerBranch.Controllers
+namespace WebBiaProject.Areas.LeTan.Controllers
 {
-    [Area("ManagerBranch")]
+    [Area("Letan")]
     [Authorize(Roles = "Manager")]
     public class EmployeeController : Controller
     {
@@ -171,7 +171,7 @@ namespace WebBiaProject.Areas.ManagerBranch.Controllers
                 EmailConfirmed = true
             };
 
-            var result = await _userManager.CreateAsync(user, "Nhanvien123@");
+            var result = await _userManager.CreateAsync(user, "nhanvien123@");
             if (result.Succeeded)
             {
                 _logger.LogInformation("User {Email} created successfully in AspNetUsers.", user.Email);

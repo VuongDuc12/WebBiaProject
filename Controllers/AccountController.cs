@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-using NewAppBookShop.ViewModels;
+using WebBiaProject.ViewModel;
 using WebBiaProject.Data;
 using WebBiaProject.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace NewAppBookShop.Controllers
+
+
+namespace WebBiaProject.Controllers
 {
     public class AccountController : Controller
     {
@@ -21,11 +23,13 @@ namespace NewAppBookShop.Controllers
             this.userManager = userManager;
              _context = context;
         }
-
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
+        [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -44,23 +48,23 @@ namespace NewAppBookShop.Controllers
                     // Check the user's role and redirect accordingly
                     if (await userManager.IsInRoleAsync(user, "Admin"))
                     {
-                        return RedirectToAction("Index", "Home", new { area = "Admin" }); // Redirect to Admin Dashboard for Admin
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
                     else if (await userManager.IsInRoleAsync(user, "Manager"))
                     {
-                        return RedirectToAction("Index", "Home", new { area = "ManagerBranch" }); // Redirect to ManagerBranch for Manager
+                        return RedirectToAction("Index", "Home", new { area = "ManagerBranch" });
                     }
                     else if (await userManager.IsInRoleAsync(user, "Employee"))
                     {
-                        return RedirectToAction("Index", "Home", new { area = "Employee" }); // Redirect to Home page for Employee
+                        return RedirectToAction("Index", "Home", new { area = "Employee" });
                     }
                     else if (await userManager.IsInRoleAsync(user, "Cashier"))
                     {
-                        return RedirectToAction("Index", "Home", new { area = "Cashier" }); // Redirect to Home page for Cashier
+                        return RedirectToAction("Index", "Home", new { area = "Cashier" });
                     }
                     else if (await userManager.IsInRoleAsync(user, "Customer"))
                     {
-                        return RedirectToAction("Index", "Home", new { area = "" }); // Redirect to Home page for Customer
+                        return RedirectToAction("Index", "Home", new { area = "" });
                     }
                     else
                     {

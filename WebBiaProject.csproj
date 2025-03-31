@@ -19,6 +19,8 @@
 	<ItemGroup>
 	  <Folder Include="Areas\Admin\Data\" />
 	  <Folder Include="Areas\Admin\Models\" />
+	  <Folder Include="Areas\LeTan\Data\" />
+	  <Folder Include="Areas\LeTan\Models\" />
 	  <Folder Include="Areas\ManagerBranch\Data\" />
 	  <Folder Include="Areas\ManagerBranch\Models\" />
 	</ItemGroup>

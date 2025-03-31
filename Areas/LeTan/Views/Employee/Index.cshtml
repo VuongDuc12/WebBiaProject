@@ -1,32 +1,14 @@
 ﻿@model List<WebBiaProject.Models.Employee>
 @{
-    ViewData["Title"] = "Danh sách nhân viên";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Danh sách nhân viên chi nhánh";
+    Layout = "~/Areas/LeTan/Views/Shared/_LayoutLeTan.cshtml";
 }
 
 <style>
-    .btn-sm {
-        padding: 5px;
-    }
-
-    .fas {
-        font-size: 14px;
-    }
-
-    .action-btn {
-        margin-right: 5px;
-    }
-
-    .badge-custom {
-        font-size: 0.9rem;
-        padding: 0.5em 1em;
-    }
-
-    .filter-section {
-        display: flex;
-        gap: 15px;
-        align-items: center;
-    }
+    .btn-sm { padding: 5px; }
+    .fas { font-size: 14px; }
+    .action-btn { margin-right: 5px; }
+    .badge-custom { font-size: 0.9rem; padding: 0.5em 1em; }
 </style>
 
 <div class="container my-3">
@@ -37,23 +19,9 @@
         </div>
     </div>
 
-    <!-- Phần bộ lọc -->
     <div class="row mb-3">
-        <div class="col-md-12">
-            <div class="filter-section">
-                <input type="text" class="form-control" placeholder="Tìm kiếm theo tên hoặc email" style="width: 40%;">
-                <select class="form-control" style="width: 30%;" id="branchFilter">
-                    <option value="">-- Chọn chi nhánh --</option>
-                    @if (ViewBag.Branches != null)
-                    {
-                        foreach (var branch in ViewBag.Branches)
-                        {
-                            <option value="@branch.Id">@branch.Name</option>
-                        }
-                    }
-                </select>
-                <button class="btn btn-primary" onclick="filterEmployees()">Lọc</button>
-            </div>
+        <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Tìm kiếm theo tên hoặc email">
         </div>
     </div>
 
@@ -110,21 +78,3 @@
     }
 </div>
 
-<script>
-    function filterEmployees() {
-        var searchText = document.querySelector('input[type="text"]').value.toLowerCase();
-        var branchId = document.getElementById('branchFilter').value;
-        var rows = document.querySelectorAll('tbody tr');
-
-        rows.forEach(row => {
-            var name = row.cells[2].textContent.toLowerCase();
-            var email = row.cells[3].textContent.toLowerCase();
-            var branch = row.cells[5].textContent;
-
-            var matchesSearch = name.includes(searchText) || email.includes(searchText);
-            var matchesBranch = branchId === "" || row.cells[5].textContent === branch;
-
-            row.style.display = (matchesSearch && matchesBranch) ? "" : "none";
-        });
-    }
-</script>
