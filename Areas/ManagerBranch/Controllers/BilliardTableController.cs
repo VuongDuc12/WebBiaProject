@@ -400,11 +400,11 @@ namespace WebBiaProject.Areas.ManagerBranch.Controllers
                     table.StatusId = 1; // Giả sử 1 là trạng thái "Trống"
                    
                 }
-                TempData["Success"] = $"Hóa đơn thanh toán thành công";
+               
                 _context.SaveChanges();
                 _logger.LogInformation("cập nhật thông tin thành công");
                 // Thiết lập thông báo TempData
-                TempData["Success"] = $"Hóa đơn thanh toán thành công";
+                TempData["Success"] = $"Hóa đơn HD{invoice.Id} thanh toán thành công";
 
                 // Chuyển hướng về trang Index
                 return RedirectToAction("Index");

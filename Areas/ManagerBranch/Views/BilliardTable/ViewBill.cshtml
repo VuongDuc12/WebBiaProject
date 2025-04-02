@@ -64,68 +64,66 @@
                 <p><strong>Khách hàng:</strong> @(Model.Invoice.CustomerName ?? "Không xác định")</p>
                 <p><strong>Số điện thoại:</strong> @(Model.Invoice.CustomerPhone ?? "N/A")</p>
             </div>
-           
-                <table class="table table-hover modern-table">
-                    <thead>
-                        <tr>
-                            <th>Tên bàn</th>
-                            <th>Thời gian sử dụng</th>
-                            <th>Đơn giá (VND/giờ)</th>
-                            <th>Thành tiền (VND)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.Invoice.InvoiceDetails.Any())
-                        {
-                            var invoiceDetail = Model.Invoice.InvoiceDetails.First();
-                            var timeInput = invoiceDetail.TimeInput;
-                            var timeOutput = invoiceDetail.TimeOutput;
-                            var hourlyRate = invoiceDetail.HourlyRate;
-
-                            <tr data-time-input="@timeInput?.ToString("o")" data-time-output="@(timeOutput.HasValue ? timeOutput.Value.ToString("o") : "")" data-hourly-rate="@hourlyRate">
-                                <td>@Model.Table.TableNumber</td>
-                                <td id="playTime">0 giờ</td>
-                                <td id="hourlyRate">@hourlyRate.ToString("N0")</td>
-                                <td id="playCost">0</td>
-                            </tr>
-                        }
-                        else
-                        {
-                            <tr>
-                                <td colspan="4">Chưa có thông tin phiên chơi</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-          
-            <hr />
-            <h5 class="section-title">Sản phẩm đã thêm</h5>
-        <div class="table-wrapper">
-                <table class="table table-hover modern-table" id="addedProductsTable">
+            <table class="table table-hover modern-table">
                 <thead>
                     <tr>
-                        <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
+                        <th>Tên bàn</th>
+                        <th>Thời gian sử dụng</th>
+                        <th>Đơn giá (VND/giờ)</th>
                         <th>Thành tiền (VND)</th>
-                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var spd in Model.Invoice.ServiceProductDetails)
+                    @if (Model.Invoice.InvoiceDetails.Any())
                     {
-                        <tr data-spd-id="@spd.Id">
-                            <td>@spd.Product.Name</td>
-                            <td>@spd.Quantity</td>
-                            <td>@spd.TotalPrice.ToString("N0")</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary increase-quantity" data-spd-id="@spd.Id">+</button>
-                                <button class="btn btn-sm btn-outline-primary decrease-quantity" data-spd-id="@spd.Id">-</button>
-                                <button class="btn btn-sm btn-outline-danger remove-product" data-spd-id="@spd.Id">Xóa</button>
-                            </td>
+                        var invoiceDetail = Model.Invoice.InvoiceDetails.First();
+                        var timeInput = invoiceDetail.TimeInput;
+                        var timeOutput = invoiceDetail.TimeOutput;
+                        var hourlyRate = invoiceDetail.HourlyRate;
+
+                        <tr data-time-input="@timeInput?.ToString("o")" data-time-output="@(timeOutput.HasValue ? timeOutput.Value.ToString("o") : "")" data-hourly-rate="@hourlyRate">
+                            <td>@Model.Table.TableNumber</td>
+                            <td id="playTime">0 giờ</td>
+                            <td id="hourlyRate">@hourlyRate.ToString("N0")</td>
+                            <td id="playCost">0</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4">Chưa có thông tin phiên chơi</td>
                         </tr>
                     }
                 </tbody>
             </table>
+            <hr />
+            <h5 class="section-title">Sản phẩm đã thêm</h5>
+            <div class="table-wrapper">
+                <table class="table table-hover modern-table" id="addedProductsTable">
+                    <thead>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền (VND)</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var spd in Model.Invoice.ServiceProductDetails)
+                        {
+                            <tr data-spd-id="@spd.Id">
+                                <td>@spd.Product.Name</td>
+                                <td>@spd.Quantity</td>
+                                <td>@spd.TotalPrice.ToString("N0")</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary increase-quantity" data-spd-id="@spd.Id">+</button>
+                                    <button class="btn btn-sm btn-outline-primary decrease-quantity" data-spd-id="@spd.Id">-</button>
+                                    <button class="btn btn-sm btn-outline-danger remove-product" data-spd-id="@spd.Id">Xóa</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -143,8 +141,125 @@
                 <p><strong>Khuyến mãi:</strong> <span id="discount">0</span> VND</p>
                 <hr />
                 <p><strong>Tổng cộng:</strong> <span id="totalCost">@totalCost.ToString("N0")</span> VND</p>
-                <button class="btn btn-pay gradient-btn" id="payBtn">Thanh toán</button>
+                <button type="button" class="btn btn-pay gradient-btn" id="openPaymentModal">Thanh toán</button>
                 <button class="btn btn-print gradient-btn" id="printBtn">In hóa đơn</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal thanh toán -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">Xác nhận thanh toán - Hóa đơn HD@(Model.Invoice.Id.ToString("D3"))</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="@Url.Action("PayInvoice", "BilliardTable", new { area = "ManagerBranch" })" id="paymentForm">
+                    <!-- Các trường ẩn gửi lên server -->
+                    <input type="hidden" name="invoiceId" value="@Model.Invoice.Id" />
+                    <input type="hidden" name="productCost" id="modalProductCost" value="@productCost" />
+                    <input type="hidden" name="playCost" id="modalPlayCost" value="@initialPlayCost" />
+
+                    <!-- Thông tin hóa đơn -->
+                    <div class="invoice-preview">
+                        <h6 class="invoice-section-title">Thông tin chung</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Mã hóa đơn:</strong> HD@(Model.Invoice.Id.ToString("D3"))</p>
+                                <p><strong>Ngày tạo:</strong> @Model.Invoice.CreatedDate?.ToString("dd/MM/yyyy")</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Khách hàng:</strong> @(Model.Invoice.CustomerName ?? "Không xác định")</p>
+                                <p><strong>Số điện thoại:</strong> @(Model.Invoice.CustomerPhone ?? "N/A")</p>
+                            </div>
+                        </div>
+
+                        <!-- Thông tin phiên chơi -->
+                        <h6 class="invoice-section-title">Phiên chơi</h6>
+                        <table class="table table-hover modern-table">
+                            <thead>
+                                <tr>
+                                    <th>Tên bàn</th>
+                                    <th>Thời gian sử dụng</th>
+                                    <th>Đơn giá (VND/giờ)</th>
+                                    <th>Thành tiền (VND)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Invoice.InvoiceDetails.Any())
+                                {
+                                    var invoiceDetail = Model.Invoice.InvoiceDetails.First();
+                                    var timeInput = invoiceDetail.TimeInput;
+                                    var timeOutput = invoiceDetail.TimeOutput;
+                                    var hourlyRate = invoiceDetail.HourlyRate;
+
+                                    <tr data-time-input="@timeInput?.ToString("o")" data-time-output="@(timeOutput.HasValue ? timeOutput.Value.ToString("o") : "")" data-hourly-rate="@hourlyRate">
+                                        <td>@Model.Table.TableNumber</td>
+                                        <td id="modalPlayTime">0 giờ</td>
+                                        <td id="modalHourlyRate">@hourlyRate.ToString("N0")</td>
+                                        <td id="modalPlayCostDisplay">0</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4">Chưa có thông tin phiên chơi</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <!-- Danh sách sản phẩm -->
+                        <h6 class="invoice-section-title">Sản phẩm đã thêm</h6>
+                        <table class="table table-bordered invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Đơn giá (VND)</th>
+                                    <th>Thành tiền (VND)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var spd in Model.Invoice.ServiceProductDetails)
+                                {
+                                   
+                                    <tr>
+                                       
+                                        <td>@spd.Product.Name</td>
+                                        <td>@spd.Quantity</td>
+                                        <td>@((spd.TotalPrice / spd.Quantity).ToString("N0"))</td>
+                                        <td>@spd.TotalPrice.ToString("N0")</td>
+                                    </tr>
+                                }
+                                @if (!Model.Invoice.ServiceProductDetails.Any())
+                                {
+                                    <tr>
+                                        <td colspan="4">Chưa có sản phẩm nào</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <!-- Tổng tiền -->
+                        <div class="invoice-total">
+                            <p><strong>Phí chơi:</strong> <span id="modalTotalPlayCost">0 VND</span></p>
+                            <p><strong>Phí sản phẩm:</strong> <span id="modalProductCostDisplay">@productCost.ToString("N0") VND</span></p>
+                            <p><strong>Khuyến mãi:</strong> <span>0 VND</span></p>
+                            <hr class="invoice-divider" />
+                            <p class="total-amount"><strong>Tổng cộng:</strong> <span id="modalTotalCost">0 VND</span></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="submit" form="paymentForm" class="btn btn-primary">Thanh toán</button>
             </div>
         </div>
     </div>
@@ -162,18 +277,18 @@
             </div>
             <div class="modal-body">
                 <form id="addProductForm">
-                    <input type="hidden" id="productId">
+                    <input type="hidden" id="productId" />
                     <div class="form-group">
                         <label for="productName">Tên sản phẩm</label>
-                        <input type="text" class="form-control" id="productName" readonly>
+                        <input type="text" class="form-control" id="productName" readonly />
                     </div>
                     <div class="form-group">
                         <label for="productPrice">Giá (VND)</label>
-                        <input type="text" class="form-control" id="productPrice" readonly>
+                        <input type="text" class="form-control" id="productPrice" readonly />
                     </div>
                     <div class="form-group">
                         <label for="quantity">Số lượng</label>
-                        <input type="number" class="form-control" id="quantity" min="1" value="1" required>
+                        <input type="number" class="form-control" id="quantity" min="1" value="1" required />
                     </div>
                 </form>
             </div>
@@ -210,6 +325,12 @@
                 $('#quantityModal').modal('show');
             });
 
+            // Mở modal thanh toán
+            $('#openPaymentModal').on('click', function () {
+                updateModalData();
+                $('#paymentModal').modal('show');
+            });
+
             // Xử lý thêm sản phẩm khi xác nhận trong modal
             $('#confirmAddProduct').on('click', function () {
                 var productId = $('#productId').val();
@@ -230,7 +351,6 @@
                     },
                     success: function (response) {
                         if (response.success) {
-                            // Reload trang để lấy dữ liệu mới từ DB
                             location.reload();
                         } else {
                             alert('Thêm sản phẩm thất bại: ' + response.message);
@@ -312,65 +432,63 @@
                 });
             });
 
-            // Real-time update cho thời gian chơi và thành tiền
+            // Real-time update cho thời gian chơi và thành tiền (giao diện chính)
             function updatePlayTime() {
                 var row = $('table.modern-table tbody tr[data-time-input]');
                 if (row.length > 0) {
                     var timeInput = new Date(row.data('time-input'));
                     var timeOutputStr = row.data('time-output');
                     var hourlyRate = parseFloat(row.data('hourly-rate'));
-                    var endTime;
-
-                    if (timeOutputStr) {
-                        endTime = new Date(timeOutputStr);
-                    } else {
-                        endTime = new Date();
-                    }
+                    var endTime = timeOutputStr ? new Date(timeOutputStr) : new Date();
 
                     var timeDiffMs = endTime - timeInput;
                     var playTimeHours = timeDiffMs / (1000 * 60 * 60);
-                    var playCost = playTimeHours * hourlyRate;
+                    var playCost = Math.round(playTimeHours * hourlyRate); // Làm tròn để không có thập phân
 
+                    // Cập nhật giao diện chính
                     $('#playTime').text(playTimeHours.toFixed(1) + ' giờ');
-                    $('#playCost').text(playCost.toLocaleString('vi-VN'));
-                    $('#totalPlayCost').text(playCost.toLocaleString('vi-VN'));
+                    $('#playCost').text(playCost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+                    $('#totalPlayCost').text(playCost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 
-                    var productCost = parseFloat($('#productCost').text().replace(/[^\d]/g, '')) || 0;
+                    var productCost = parseFloat($('#productCost').text().replace(/[^\d]/g, '')) || @productCost;
                     var totalCost = playCost + productCost;
-                    $('#totalCost').text(totalCost.toLocaleString('vi-VN'));
+                    $('#totalCost').text(totalCost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+                }
+            }
+
+            // Hàm cập nhật dữ liệu trong modal
+            function updateModalData() {
+                var row = $('table.modern-table tbody tr[data-time-input]');
+                if (row.length > 0) {
+                    var timeInput = new Date(row.data('time-input'));
+                    var timeOutputStr = row.data('time-output');
+                    var hourlyRate = parseFloat(row.data('hourly-rate'));
+                    var endTime = timeOutputStr ? new Date(timeOutputStr) : new Date();
+
+                    var timeDiffMs = endTime - timeInput;
+                    var playTimeHours = timeDiffMs / (1000 * 60 * 60);
+                    var playCost = Math.round(playTimeHours * hourlyRate); // Làm tròn để không có thập phân
+
+                    // Cập nhật hiển thị trong modal
+                    $('#modalPlayTime').text(playTimeHours.toFixed(1) + ' giờ');
+                    $('#modalPlayCostDisplay').text(playCost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+                    $('#modalTotalPlayCost').text(playCost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' VND');
+
+                    var productCost = @productCost; // Lấy giá trị tĩnh từ Razor
+                    var totalCost = playCost + productCost;
+                    $('#modalProductCostDisplay').text(productCost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' VND');
+                    $('#modalTotalCost').text(totalCost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' VND');
+
+                    // Cập nhật giá trị hidden để gửi form (tĩnh theo yêu cầu)
+                    $('#modalPlayCost').val(@initialPlayCost);
+                    $('#modalProductCost').val(@productCost);
                 }
             }
 
             setInterval(updatePlayTime, 1000);
             updatePlayTime();
 
-            $('#payBtn').on('click', function () {
-                var productCost = parseFloat($('#productCost').text().replace(/[^\d]/g, '')) || 0;
-                var playCost = parseFloat($('#playCost').text().replace(/[^\d]/g, '')) || 0;
-
-                $.ajax({
-                    url: '@Url.Action("PayInvoice", "BilliardTable", new { area = "ManagerBranch" })',
-                    type: 'POST',
-                    data: {
-                        invoiceId: @Model.Invoice.Id,
-                        productCost: productCost,
-                        playCost: playCost
-                    }, success: function (response) {
-                        // Nếu server trả về JSON (trường hợp lỗi)
-                        if (typeof response === 'object' && response.success === false) {
-                            alert('Thanh toán thất bại: ' + response.message);
-                        } else {
-                            // Nếu không phải JSON (do RedirectToAction), tự chuyển hướng về Index
-                            window.location.href = '@Url.Action("Index", "BilliardTable", new { area = "ManagerBranch" })';
-                        }
-                    },
-                    error: function () {
-                        alert('Đã xảy ra lỗi khi thanh toán.');
-                    }
-  
-                });
-            });
-
+            // Xử lý in hóa đơn
             $('#printBtn').on('click', function () {
                 window.print();
             });
@@ -567,4 +685,59 @@
             .table-wrapper::-webkit-scrollbar-thumb:hover {
                 background: linear-gradient(45deg, #2563eb, #00b4ff);
             }
+
+    /* CSS cho modal */
+    .invoice-preview {
+        font-family: Arial, sans-serif;
+        padding: 10px;
+    }
+
+    .invoice-section-title {
+        color: #1e3a8a;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 15px 0 10px;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 5px;
+    }
+
+    .invoice-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15px;
+    }
+
+        .invoice-table th,
+        .invoice-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .invoice-table th {
+            background-color: #f0f9ff;
+            color: #1e3a8a;
+        }
+
+    .invoice-total {
+        text-align: right;
+        font-size: 14px;
+    }
+
+        .invoice-total p {
+            margin: 5px 0;
+        }
+
+    .total-amount {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1e3a8a;
+    }
+
+    .invoice-divider {
+        border: 0;
+        border-top: 1px dashed #ccc;
+        margin: 10px 0;
+    }
 </style>
