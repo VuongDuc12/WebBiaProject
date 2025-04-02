@@ -47,4 +47,5 @@ public partial class BilliardTable
     [ForeignKey("StatusId")]
     [InverseProperty("BilliardTables")]
     public virtual TableStatus Status { get; set; } = null!;
+    public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
 }

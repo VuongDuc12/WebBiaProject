@@ -5,59 +5,80 @@
 }
 
 <style>
+    .table-container {
+        margin-top: 20px;
+    }
+
     .table-card {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
         text-align: center;
-        height: 120px;
+        min-height: 140px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         margin-bottom: 20px;
-        transition: transform 0.2s, box-shadow 0.2s;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
         cursor: pointer;
+        background-color: #fff;
     }
 
         .table-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
         .table-card.available {
-            background-color: #d4edda; /* Màu xanh nhạt cho bàn trống */
+            background-color: #e6ffe6; /* Xanh nhạt cho bàn trống */
+            border-left: 4px solid #28a745;
         }
 
         .table-card.occupied {
-            background-color: #f8d7da; /* Màu đỏ nhạt cho bàn đang sử dụng */
+            background-color: #ffe6e6; /* Đỏ nhạt cho bàn đang sử dụng */
+            border-left: 4px solid #dc3545;
         }
 
         .table-card.reserved {
-            background-color: #fff3cd; /* Màu vàng nhạt cho bàn đã đặt */
+            background-color: #fff3e6; /* Vàng nhạt cho bàn đã đặt */
+            border-left: 4px solid #ffc107;
         }
 
         .table-card h5 {
             margin: 0;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
         }
 
         .table-card p {
-            margin: 5px 0 0;
-            font-size: 0.9rem;
+            margin: 8px 0 0;
+            font-size: 0.95rem;
+            color: #666;
         }
 
-        .table-card a {
-            text-decoration: none;
-            color: inherit;
+        .table-card .status {
+            font-weight: 500;
         }
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .btn-add {
+        padding: 10px 20px;
+        font-weight: 500;
+        border-radius: 5px;
+    }
 </style>
 
-<div class="container my-3">
-    <div class="d-flex justify-content-between align-items-center mb-3">
+<div class="container table-container">
+    <div class="header-section">
         <h2 class="mb-0">Danh sách bàn bia</h2>
-        <div>
-            <a class="btn btn-primary p-2" href="@Url.Action("Create", "BilliardTable")">+ Thêm bàn bia</a>
-        </div>
+        <a class="btn btn-primary btn-add" href="@Url.Action("Create", "BilliardTable")">+ Thêm bàn bia</a>
     </div>
 
     @if (Model != null && Model.Any())
@@ -82,16 +103,15 @@
                     _ => table.Status?.Name ?? "Không xác định"
                 };
 
-                // Xác định hành vi khi nhấp
                 string action = statusName == "sẵn sàng"
                 ? $"showStartModal({table.Id}, '{table.Name} #{table.TableNumber}')"
-                : $"window.location.href='{Url.Action("ViewBill", "BilliardTable", new { id = table.Id })}'";
+                : $"window.location.href='{Url.Action("ViewBill", "BilliardTable", new { idTable = table.Id })}'";
 
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6">
                     <div class="table-card @statusClass" onclick="@action">
                         <h5>@table.Name #@table.TableNumber</h5>
-                        <p>Trạng thái: @displayStatus</p>
-                        <p>Giá mỗi giờ: @table.HourlyRate.ToString("N2") VND</p>
+                        <p class="status">Trạng thái: @displayStatus</p>
+                        <p>Giá/giờ: @table.HourlyRate.ToString("N2") VND</p>
                     </div>
                 </div>
             }
@@ -99,7 +119,7 @@
     }
     else
     {
-        <div class="alert alert-info">Không có bàn bia nào để hiển thị.</div>
+        <div class="alert alert-info text-center">Không có bàn bia nào để hiển thị.</div>
     }
 
     <!-- Modal bật bàn -->
@@ -114,11 +134,9 @@
                     <p id="modalMessage"></p>
                 </div>
                 <div class="modal-footer">
-                    <form asp-action="StartTable" method="post" id="startTableForm">
-                        <input type="hidden" name="id" id="tableId" />
-                        <button type="submit" class="btn btn-primary">Bật bàn</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    </form>
+                    <button type="button" class="btn btn-primary" id="startTableButton">Bật bàn</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <input type="hidden" id="tableId" />
                 </div>
             </div>
         </div>
@@ -132,4 +150,9 @@
         var modal = new bootstrap.Modal(document.getElementById('startTableModal'));
         modal.show();
     }
+
+    document.getElementById('startTableButton').addEventListener('click', function () {
+        var tableId = document.getElementById('tableId').value;
+        window.location.href = '@Url.Action("CreateBill", "BilliardTable")' + '?tableId=' + tableId;
+    });
 </script>

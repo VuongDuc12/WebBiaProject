@@ -23,6 +23,12 @@ public partial class InvoiceDetail
     public decimal TotalPlayPrice { get; set; }
 
     [Column(TypeName = "datetime")]
+    public DateTime? TimeInput { get; set; } // Thêm thời gian bắt đầu
+
+    [Column(TypeName = "datetime")]
+    public DateTime? TimeOutput { get; set; } // Thêm thời gian kết thúc
+
+    [Column(TypeName = "datetime")]
     public DateTime? CreatedDate { get; set; }
 
     [Column(TypeName = "datetime")]
