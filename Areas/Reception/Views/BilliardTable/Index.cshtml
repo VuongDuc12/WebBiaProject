@@ -1,0 +1,158 @@
+﻿@model List<WebBiaProject.Models.BilliardTable>
+@{
+    ViewData["Title"] = "Danh sách bàn bia chi nhánh";
+    Layout = "~/Areas/Reception/Views/Shared/_LayoutReception.cshtml";
+}
+
+<style>
+    .table-container {
+        margin-top: 20px;
+    }
+
+    .table-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        min-height: 140px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 20px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+        background-color: #fff;
+    }
+
+        .table-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-card.available {
+            background-color: #e6ffe6; /* Xanh nhạt cho bàn trống */
+            border-left: 4px solid #28a745;
+        }
+
+        .table-card.occupied {
+            background-color: #ffe6e6; /* Đỏ nhạt cho bàn đang sử dụng */
+            border-left: 4px solid #dc3545;
+        }
+
+        .table-card.reserved {
+            background-color: #fff3e6; /* Vàng nhạt cho bàn đã đặt */
+            border-left: 4px solid #ffc107;
+        }
+
+        .table-card h5 {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .table-card p {
+            margin: 8px 0 0;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .table-card .status {
+            font-weight: 500;
+        }
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .btn-add {
+        padding: 10px 20px;
+        font-weight: 500;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="container table-container">
+    <div class="header-section">
+        <h2 class="mb-0">Danh sách bàn bia</h2>
+        <a class="btn btn-primary btn-add" href="@Url.Action("Create", "BilliardTable")">+ Thêm bàn bia</a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            @foreach (var table in Model)
+            {
+                string statusName = table.Status?.Name?.ToLower() ?? "unknown";
+                string statusClass = statusName switch
+                {
+                    "sẵn sàng" => "available",
+                    "đang chơi" => "occupied",
+                    "đã đặt bàn" => "reserved",
+                    _ => "unknown"
+                };
+
+                string displayStatus = statusName switch
+                {
+                    "sẵn sàng" => "Trống",
+                    "đang chơi" => "Đang sử dụng",
+                    "đã đặt bàn" => "Đã đặt",
+                    _ => table.Status?.Name ?? "Không xác định"
+                };
+
+                string action = statusName == "sẵn sàng"
+                ? $"showStartModal({table.Id}, '{table.Name} #{table.TableNumber}')"
+                : $"window.location.href='{Url.Action("ViewBill", "BilliardTable", new { idTable = table.Id })}'";
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="table-card @statusClass" onclick="@action">
+                        <h5>@table.Name #@table.TableNumber</h5>
+                        <p class="status">Trạng thái: @displayStatus</p>
+                        <p>Giá/giờ: @table.HourlyRate.ToString("N2") VND</p>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">Không có bàn bia nào để hiển thị.</div>
+    }
+
+    <!-- Modal bật bàn -->
+    <div class="modal fade" id="startTableModal" tabindex="-1" aria-labelledby="startTableModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="startTableModalLabel">Bật bàn bia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="startTableButton">Bật bàn</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <input type="hidden" id="tableId" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showStartModal(tableId, tableName) {
+        document.getElementById('modalMessage').innerText = `Bàn ${tableName} hiện đang trống. Bạn có muốn bật bàn không?`;
+        document.getElementById('tableId').value = tableId;
+        var modal = new bootstrap.Modal(document.getElementById('startTableModal'));
+        modal.show();
+    }
+
+    document.getElementById('startTableButton').addEventListener('click', function () {
+        var tableId = document.getElementById('tableId').value;
+        window.location.href = '@Url.Action("CreateBill", "BilliardTable")' + '?tableId=' + tableId;
+    });
+</script>

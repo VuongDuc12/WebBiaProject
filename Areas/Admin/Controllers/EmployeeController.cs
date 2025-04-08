@@ -118,7 +118,7 @@ namespace WebBiaProject.Controllers
             {
                 "Nhân Viên" => "Employee",
                 "Quản Lý" => "Manager",
-                "Thu Ngân" => "Cashier",
+                "Lễ Tân" => "Reception",
                 _ => "Employee" // Mặc định nếu không khớp
             };
 

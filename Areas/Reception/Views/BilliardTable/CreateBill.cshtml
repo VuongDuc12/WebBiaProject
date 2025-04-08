@@ -1,0 +1,149 @@
+﻿@model WebBiaProject.Areas.ManagerBranch.Controllers.CreateBillViewModel
+
+@{
+    ViewData["Title"] = "Tạo hóa đơn mới";
+    Layout = "~/Areas/Reception/Views/Shared/_LayoutReception.cshtml";
+    }
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Tạo hóa đơn - Bàn @Model.TableNumber</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/ManagerBranch">Quản lý chi nhánh</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "BilliardTable")">Danh sách bàn</a></li>
+                    <li class="breadcrumb-item">Tạo hóa đơn</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Thông tin khách hàng</h5>
+        </div>
+        <div class="card-body">
+            <form id="createBillForm" asp-area="ManagerBranch" asp-controller="BilliardTable" asp-action="CreateBill" method="post">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" name="TableId" value="@Model.TableId" />
+                <input type="hidden" name="TableNumber" value="@Model.TableNumber" />
+
+                <div class="mb-4">
+                    <label for="CustomerName" class="form-label">Tên khách hàng</label>
+                    <input type="text" id="CustomerName" name="CustomerName" class="form-control" placeholder="Nhập tên khách hàng (không bắt buộc)" value="@Model.CustomerName" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="CustomerPhone" class="form-label">Số điện thoại</label>
+                    <input type="text" id="CustomerPhone" name="CustomerPhone" class="form-control" placeholder="Nhập số điện thoại (không bắt buộc)" value="@Model.CustomerPhone" />
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="submit" class="btn btn-primary">Tạo hóa đơn</button>
+                    <a href="@Url.Action("Index", "BilliardTable")" class="btn btn-secondary">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    .container {
+        max-width: 550px;
+    }
+
+    .card {
+        border-radius: 10px;
+        border: 1px solid #e5e5e5;
+        background-color: #ffffff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-header {
+        border-radius: 10px 10px 0 0;
+        padding: 15px 20px;
+        background-color: #007bff;
+    }
+
+    .card-body {
+        padding: 25px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 6px;
+        border: 1px solid #d1d3e2;
+        padding: 12px 15px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+            outline: none;
+        }
+
+    .btn {
+        padding: 10px 25px;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #0062cc;
+            transform: translateY(-2px);
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+    }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+            transform: translateY(-2px);
+        }
+
+    .gap-2 {
+        gap: 12px;
+    }
+
+    .text-danger {
+        font-size: 0.85rem;
+        margin-top: 5px;
+    }
+
+    .mb-4 {
+        margin-bottom: 1.5rem;
+    }
+
+    .was-validated .form-control:invalid {
+        border-color: #dc3545;
+    }
+
+    .was-validated .form-control:valid {
+        border-color: #28a745;
+    }
+</style>

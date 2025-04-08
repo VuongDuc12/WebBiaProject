@@ -6,10 +6,10 @@ using Microsoft.Extensions.Logging;
 using WebBiaProject.Data;
 using WebBiaProject.Models;
 
-namespace WebBiaProject.Areas.LeTan.Controllers
+namespace WebBiaProject.Areas.Reception.Controllers
 {
-    [Area("Letan")]
-    [Authorize(Roles = "Manager")]
+    [Area("Reception")]
+    [Authorize(Roles = "Reception")]
     public class EmployeeController : Controller
     {
         private readonly ApplicationDbContext _context;

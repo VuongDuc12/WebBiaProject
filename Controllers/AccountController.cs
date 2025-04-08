@@ -58,9 +58,9 @@ namespace WebBiaProject.Controllers
                     {
                         return RedirectToAction("Index", "Home", new { area = "Employee" });
                     }
-                    else if (await userManager.IsInRoleAsync(user, "Cashier"))
+                    else if (await userManager.IsInRoleAsync(user, "Reception"))
                     {
-                        return RedirectToAction("Index", "Home", new { area = "Cashier" });
+                        return RedirectToAction("Index", "Home", new { area = "Reception" });
                     }
                     else if (await userManager.IsInRoleAsync(user, "Customer"))
                     {

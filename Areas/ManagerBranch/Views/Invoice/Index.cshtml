@@ -5,10 +5,51 @@
 }
 
 <style>
-    .btn-sm { padding: 5px; }
-    .fas { font-size: 14px; }
-    .action-btn { margin-right: 5px; }
-    .badge-custom { font-size: 0.9rem; padding: 0.5em 1em; }
+    .btn-sm {
+        padding: 5px;
+    }
+
+    .fas {
+        font-size: 14px;
+    }
+
+    .action-btn {
+        margin-right: 5px;
+    }
+
+    .badge-custom {
+        font-size: 0.9rem;
+        padding: 0.5em 1em;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: none;
+    }
+
+    .card-body h6 {
+        font-size: 0.9rem;
+    }
+
+    .card-body h4 {
+        font-weight: 600;
+    }
+
+    .text-sm {
+        font-size: 0.85rem;
+    }
+
+    .text-primary {
+        color: #007bff !important;
+    }
+
+    .bg-light-primary {
+        background-color: #e6f0ff;
+    }
+
+    .border-primary {
+        border-color: #007bff !important;
+    }
 </style>
 
 <div class="container my-3">
@@ -17,6 +58,37 @@
         <div>
             <!-- Có thể thêm nút tạo hóa đơn nếu cần -->
             <!-- <a class="btn btn-primary p-2" href="@Url.Action("Create", "Invoice")">+ Thêm hóa đơn</a> -->
+        </div>
+    </div>
+
+    <!-- Thống kê với card -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="mb-2 f-w-400 text-muted">Tổng số hóa đơn</h6>
+                    <h4 class="mb-3">@ViewBag.InvoiceCount <span class="badge bg-light-primary border border-primary"><i class="ti ti-trending-up"></i> @((ViewBag.InvoiceCount > 0 ? (ViewBag.InvoiceCount / (double)ViewBag.InvoiceCount * 100) : 0).ToString("F1"))%</span></h4>
+                    <p class="mb-0 text-muted text-sm">Số hóa đơn hiện tại trong chi nhánh</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="mb-2 f-w-400 text-muted">Tổng số khách hàng</h6>
+                    <h4 class="mb-3">@ViewBag.CustomerCount <span class="badge bg-light-primary border border-primary"><i class="ti ti-trending-up"></i> @((ViewBag.CustomerCount > 0 ? (ViewBag.CustomerCount / (double)ViewBag.CustomerCount * 100) : 0).ToString("F1"))%</span></h4>
+                    <p class="mb-0 text-muted text-sm">Khách hàng duy nhất đã giao dịch</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="mb-2 f-w-400 text-muted">Tổng doanh thu</h6>
+                    <h4 class="mb-3">@(((decimal)ViewBag.TotalRevenue).ToString("N0")) VNĐ</h4>
+                    <p class="mb-0 text-muted text-sm">Doanh thu từ tất cả hóa đơn</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -54,14 +126,14 @@
                             <td>
                                 @switch (invoice.Status)
                                 {
-                                    case "Từ chối":
+                                    case "Thanh toán thất bại":
                                         <span class="badge badge-custom bg-danger">Từ chối</span>
                                         break;
-                                    case "Đang chờ":
-                                        <span class="badge badge-custom bg-warning">Đang chờ</span>
+                                    case "Đang xử lý":
+                                        <span class="badge badge-custom bg-warning">Đang xử lý</span>
                                         break;
-                                    case "Đã duyệt":
-                                        <span class="badge badge-custom bg-success">Đã duyệt</span>
+                                    case "Đã Thanh Toán":
+                                        <span class="badge badge-custom bg-success">Đã Thanh Toán</span>
                                         break;
                                     default:
                                         <span class="badge badge-custom bg-secondary">@(invoice.Status ?? "Không xác định")</span>
@@ -70,12 +142,10 @@
                             </td>
                             <td>@invoice.TotalAmount.ToString("N2") VNĐ</td>
                             <td>
-                                <!-- Có thể thêm nút chỉnh sửa nếu cần -->
                                 <a href="@Url.Action("Edit", "Invoice", new { id = invoice.Id })"
                                    class="btn btn-sm btn-primary action-btn" title="Sửa">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <!-- Nút xóa (nếu cần) -->
                                 <button class="btn btn-sm btn-danger action-btn delete-btn"
                                         data-id="@invoice.Id" title="Xóa">
                                     <i class="fas fa-trash"></i>

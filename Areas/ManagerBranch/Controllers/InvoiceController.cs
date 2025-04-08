@@ -26,7 +26,6 @@ namespace WebBiaProject.Areas.ManagerBranch.Controllers
             _logger = logger;
         }
 
-        // Lấy BranchId của người quản lý hiện tại
         private async Task<int?> GetManagerBranchId()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -61,11 +60,16 @@ namespace WebBiaProject.Areas.ManagerBranch.Controllers
 
             _logger.LogInformation("Fetching invoices for branch {BranchId}.", branchId);
             var invoices = await _context.Invoices
-                .Include(i => i.Customer) // Lấy thông tin khách hàng
-                .Include(i => i.Branch)   // Lấy thông tin chi nhánh
+                .Include(i => i.Customer)
+                .Include(i => i.Branch)
                 .Where(i => i.BranchId == branchId)
-                .OrderByDescending(i => i.CreatedDate) // Sắp xếp theo ngày tạo mới nhất
+                .OrderByDescending(i => i.CreatedDate)
                 .ToListAsync();
+
+            // Tính toán các giá trị thống kê
+            ViewBag.InvoiceCount = invoices.Count; // Số lượng hóa đơn
+            ViewBag.CustomerCount = invoices.Select(i => i.CustomerId).Distinct().Count(); // Số lượng khách hàng duy nhất
+            ViewBag.TotalRevenue = invoices.Sum(i => i.TotalAmount); // Tổng doanh thu
 
             return View(invoices);
         }

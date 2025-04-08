@@ -1,0 +1,77 @@
+﻿@model WebBiaProject.Areas.Reception.Controllers.ReservationViewModel
+@{
+    ViewData["Title"] = "Tạo đơn đặt hàng mới";
+    Layout = "~/Areas/Reception/Views/Shared/_LayoutReception.cshtml";
+}
+
+<style>
+    .form-group label {
+        font-weight: 500;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+
+    .btn {
+        border-radius: 5px;
+    }
+
+    .text-danger {
+        font-size: 0.875rem;
+    }
+</style>
+
+<div class="container my-4">
+    <h2 class="mb-4">Tạo đơn đặt hàng mới</h2>
+    <div class="card p-4">
+        <form asp-action="Create" method="post">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CustomerName" class="form-label">Tên khách hàng</label>
+                        <input asp-for="CustomerName" class="form-control" placeholder="Nhập tên khách hàng" />
+                        <span asp-validation-for="CustomerName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CustomerPhone" class="form-label">Số điện thoại</label>
+                        <input asp-for="CustomerPhone" class="form-control" placeholder="Nhập số điện thoại" />
+                        <span asp-validation-for="CustomerPhone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="TableId" class="form-label">Chọn bàn</label>
+                        <select asp-for="TableId" class="form-control"
+                                asp-items="@(new SelectList(Model.AvailableTables, "Id", "TableNumber"))">
+                            <option value="">-- Chọn bàn --</option>
+                        </select>
+                        <span asp-validation-for="TableId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="StartTime" class="form-label">Thời gian đặt</label>
+                        <input asp-for="StartTime" class="form-control" type="datetime-local"
+                               min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                        <span asp-validation-for="StartTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-12 mt-4">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="fas fa-save"></i> Tạo đơn
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Quay lại
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

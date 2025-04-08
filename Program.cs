@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebBiaProject.Data;
+using WebBiaProject.Hubs;
 using WebBiaProject.Models;
 using WebBiaProject.Services;
 
@@ -27,9 +28,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
+
 
 var app = builder.Build();
-
+app.MapHub<NotificationHub>("/notificationHub");
 // Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {

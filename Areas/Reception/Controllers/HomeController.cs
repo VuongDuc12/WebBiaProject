@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 
-namespace WebBiaProject.Areas.LeTan.Controllers
+namespace WebBiaProject.Areas.Reception.Controllers
 {
-    [Area("Letan")]
-    [Authorize(Roles ="Manager")]
+    [Area("Reception")]
+    [Authorize(Roles = "Reception")]
 
     public class HomeController : Controller
     {
