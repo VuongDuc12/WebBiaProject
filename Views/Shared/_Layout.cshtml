@@ -136,7 +136,67 @@
    
   
     @RenderBody()
-    
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1055;">
+        <!-- Success Toast -->
+        @if (TempData["Success"] != null)
+        {
+            <div id="successToast" class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+                <div class="toast-header bg-success text-white shadow-sm">
+                    <i class="fas fa-check-circle me-2 animate-icon"></i>
+                    <strong class="me-auto">Thành công</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-light text-dark animate-body">
+                    @TempData["Success"]
+                </div>
+            </div>
+        }
+
+        <!-- Error Toast -->
+        @if (TempData["Error"] != null)
+        {
+            <div id="errorToast" class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+                <div class="toast-header bg-danger text-white shadow-sm">
+                    <i class="fas fa-exclamation-circle me-2 animate-icon"></i>
+                    <strong class="me-auto">Lỗi</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-light text-dark animate-body">
+                    @TempData["Error"]
+                </div>
+            </div>
+        }
+
+        <!-- Warning Toast -->
+        @if (TempData["Warning"] != null)
+        {
+            <div id="warningToast" class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+                <div class="toast-header bg-warning text-dark shadow-sm">
+                    <i class="fas fa-exclamation-triangle me-2 animate-icon"></i>
+                    <strong class="me-auto">Cảnh báo</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-light text-dark animate-body">
+                    @TempData["Warning"]
+                </div>
+            </div>
+        }
+
+        <!-- Info Toast -->
+        @if (TempData["Info"] != null)
+        {
+            <div id="infoToast" class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+                <div class="toast-header bg-info text-white shadow-sm">
+                    <i class="fas fa-info-circle me-2 animate-icon"></i>
+                    <strong class="me-auto">Thông tin</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-light text-dark animate-body">
+                    @TempData["Info"]
+                </div>
+            </div>
+        }
+    </div>
     @await Html.PartialAsync("_Footer");
   
     <!-- JavaScript Libraries -->
@@ -153,6 +213,28 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            
+            // Khởi tạo Toast từ TempData
+            const toastElements = {
+                successToast: document.getElementById('successToast'),
+                errorToast: document.getElementById('errorToast'),
+                warningToast: document.getElementById('warningToast'),
+                infoToast: document.getElementById('infoToast')
+            };
+
+            Object.keys(toastElements).forEach(function (key) {
+                if (toastElements[key]) {
+                    const toast = new bootstrap.Toast(toastElements[key], {
+                        autohide: true,
+                        delay: 5000
+                    });
+                    toast.show();
+                }
+            });
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

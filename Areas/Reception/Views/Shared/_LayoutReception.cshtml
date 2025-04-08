@@ -28,7 +28,7 @@
 <!-- [Template CSS Files] -->
 <link rel="stylesheet" href="~/assets/css/style.css" id="main-style-link" >
 <link rel="stylesheet" href="~/assets/css/style-preset.css" >
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
@@ -260,6 +260,30 @@
         </div>
       </div>
     </li>
+
+                    <!-- Thêm Notification Dropdown ngay cạnh Message -->
+                    <li class="dropdown pc-h-item">
+                        <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <i class="ti ti-bell"></i>
+                            <span id="notificationCount" class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle">0</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown" style="min-width: 300px;">
+                            <div class="dropdown-header d-flex align-items-center justify-content-between">
+                                <h5 class="m-0">Thông báo đặt bàn</h5>
+                                <button id="clearNotifications" class="btn btn-link p-0 text-muted">Xóa tất cả</button>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div id="notificationList" class="dropdown-header px-0 text-wrap header-notification-scroll position-relative" style="max-height: calc(100vh - 215px); overflow-y: auto;">
+                                <div class="text-center text-muted" id="noNotifications">Chưa có thông báo mới</div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="text-center py-2">
+                                <a href="/Reception/Reservation" class="link-primary">Xem danh sách đặt bàn</a>
+                            </div>
+                        </div>
+                    </li>
+
+
     <li class="dropdown pc-h-item header-user-profile">
       <a
         class="pc-head-link dropdown-toggle arrow-none me-0"
@@ -472,7 +496,7 @@
     <script src="~/assets/js/fonts/custom-font.js"></script>
     <script src="~/assets/js/pcoded.js"></script>
     <script src="~/assets/js/plugins/feather.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -480,43 +504,96 @@
     @RenderSection("Scripts", required: false)
     <!-- Script để đảm bảo toast hoạt động -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var successToastEl = document.getElementById('successToast');
-            var errorToastEl = document.getElementById('errorToast');
-            var warningToastEl = document.getElementById('warningToast');
-            var infoToastEl = document.getElementById('infoToast');
+        $(document).ready(function () {
+            // Kết nối SignalR
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/notificationHub")
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
 
-            if (successToastEl) {
-                var successToast = new bootstrap.Toast(successToastEl, {
-                    autohide: true,
-                    delay: 5000 // 5 giây
-                });
-                successToast.show();
-            }
+            let notificationCount = 0;
 
-            if (errorToastEl) {
-                var errorToast = new bootstrap.Toast(errorToastEl, {
-                    autohide: true,
-                    delay: 5000
-                });
-                errorToast.show();
-            }
+            // Nhận thông báo từ server
+            connection.on("ReceiveReservationNotification", function (message) {
+                notificationCount++;
+                $("#notificationCount").text(notificationCount);
+                $("#noNotifications").hide();
 
-            if (warningToastEl) {
-                var warningToast = new bootstrap.Toast(warningToastEl, {
-                    autohide: true,
-                    delay: 5000
-                });
-                warningToast.show();
-            }
+                // Thêm vào danh sách thông báo (dropdown)
+                const notificationItem = `
+                        <div class="list-group-item list-group-item-action">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-bell text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    <p class="text-body mb-1">${message}</p>
+                                    <span class="text-muted">${new Date().toLocaleTimeString()}</span>
+                                </div>
+                            </div>
+                        </div>`;
+                $("#notificationList").prepend(notificationItem);
+                $("#notificationList").scrollTop(0);
 
-            if (infoToastEl) {
-                var infoToast = new bootstrap.Toast(infoToastEl, {
-                    autohide: true,
-                    delay: 5000
+                // Tạo và hiển thị toast thông báo
+                const toastId = `newOrderToast_${Date.now()}`; // ID duy nhất cho mỗi toast
+                const toastHtml = `
+                        <div id="${toastId}" class="toast fade" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+                            <div class="toast-header bg-success text-white shadow-sm">
+                                <i class="fas fa-bell me-2"></i>
+                                <strong class="me-auto">Thông báo</strong>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body bg-light text-dark">
+                                Bạn có đơn hàng mới: ${message}
+                            </div>
+                        </div>`;
+
+                // Thêm toast vào toast container
+                $(".toast-container").append(toastHtml);
+
+                // Khởi tạo và hiển thị toast
+                const toastElement = document.getElementById(toastId);
+                if (toastElement) {
+                    const toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }
+            });
+
+            // Khởi động kết nối SignalR
+            connection.start()
+                .then(function () {
+                    console.log("SignalR connected.");
+                })
+                .catch(function (err) {
+                    console.error("SignalR connection error: ", err.toString());
                 });
-                infoToast.show();
-            }
+
+            // Xóa tất cả thông báo trong dropdown
+            $("#clearNotifications").click(function () {
+                $("#notificationList").empty();
+                $("#notificationCount").text("0");
+                notificationCount = 0;
+                $("#noNotifications").show();
+            });
+
+            // Khởi tạo Toast từ TempData
+            const toastElements = {
+                successToast: document.getElementById('successToast'),
+                errorToast: document.getElementById('errorToast'),
+                warningToast: document.getElementById('warningToast'),
+                infoToast: document.getElementById('infoToast')
+            };
+
+            Object.keys(toastElements).forEach(function (key) {
+                if (toastElements[key]) {
+                    const toast = new bootstrap.Toast(toastElements[key], {
+                        autohide: true,
+                        delay: 5000
+                    });
+                    toast.show();
+                }
+            });
         });
     </script>
     <script>layout_change('light');</script>
