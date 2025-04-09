@@ -1,4 +1,4 @@
-﻿@model WebBiaProject.Areas.ManagerBranch.Controllers.ViewBillViewModel
+﻿@model WebBiaProject.Areas.Reception.Controllers.ViewBillViewModel
 
 @{
     ViewData["Title"] = "Quản lý phiên chơi";
@@ -159,7 +159,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="@Url.Action("PayInvoice", "BilliardTable", new { area = "ManagerBranch" })" id="paymentForm">
+                <form method="post" action="@Url.Action("PayInvoice", "BilliardTable", new { area = "Reception" })" id="paymentForm">
                     <!-- Các trường ẩn gửi lên server -->
                     <input type="hidden" name="invoiceId" value="@Model.Invoice.Id" />
                     <input type="hidden" name="productCost" id="modalProductCost" value="@productCost" />
@@ -342,7 +342,7 @@
                 }
 
                 $.ajax({
-                    url: '@Url.Action("AddProductToInvoice", "BilliardTable", new { area = "ManagerBranch" })',
+                    url: '@Url.Action("AddProductToInvoice", "BilliardTable", new { area = "Reception" })',
                     type: 'POST',
                     data: {
                         invoiceId: @Model.Invoice.Id,
@@ -370,7 +370,7 @@
                 var newQuantity = currentQuantity + 1;
 
                 $.ajax({
-                    url: '@Url.Action("UpdateProductQuantity", "BilliardTable", new { area = "ManagerBranch" })',
+                    url: '@Url.Action("UpdateProductQuantity", "BilliardTable", new { area = "Reception" })',
                     type: 'POST',
                     data: { spdId: spdId, quantity: newQuantity },
                     success: function (response) {
@@ -396,7 +396,7 @@
                 if (newQuantity < 1) return;
 
                 $.ajax({
-                    url: '@Url.Action("UpdateProductQuantity", "BilliardTable", new { area = "ManagerBranch" })',
+                    url: '@Url.Action("UpdateProductQuantity", "BilliardTable", new { area = "Reception" })',
                     type: 'POST',
                     data: { spdId: spdId, quantity: newQuantity },
                     success: function (response) {
@@ -416,7 +416,7 @@
             $('#addedProductsTable').on('click', '.remove-product', function () {
                 var spdId = $(this).data('spd-id');
                 $.ajax({
-                    url: '@Url.Action("RemoveProductFromInvoice", "BilliardTable", new { area = "ManagerBranch" })',
+                    url: '@Url.Action("RemoveProductFromInvoice", "BilliardTable", new { area = "Reception" })',
                     type: 'POST',
                     data: { spdId: spdId },
                     success: function (response) {
